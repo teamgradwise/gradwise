@@ -65,8 +65,11 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--gray-50); 
 /* ── PAGE SECTIONS ── */
 .page-section { display: none; }
 .page-section.active { display: block; }
+
+/* ── WIZARD STEPS ── */
 .wizard-step { display: none; }
 .wizard-step.active { display: block; }
+
 /* ── DISCLAIMER BANNER ── */
 .disclaimer-banner {
   background: var(--amber-light); border: 1px solid rgba(239,159,39,0.3);
@@ -284,7 +287,7 @@ input[type=range]::-webkit-slider-thumb { appearance: none; width: 22px; height:
   </div>
   <nav class="sidebar-nav">
     <div class="nav-section">Tools</div>
-    <div class="nav-item active" onclick="showSection('compare',this)">
+    <div class="nav-item active" onclick="showSection('compare',this);goWizard('landing')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
       Compare Schools
     </div>
@@ -337,8 +340,51 @@ input[type=range]::-webkit-slider-thumb { appearance: none; width: 22px; height:
 
       <!-- WIZARD STEPS -->
 
+      <!-- LANDING PAGE -->
+      <div class="wizard-step active" id="wstep-landing">
+        <div style="text-align:center;padding:3rem 1rem 2rem">
+          <div style="display:inline-block;background:var(--teal-light);color:var(--teal-dark);font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:1.25rem">Free · No sign-up required</div>
+          <h1 style="font-size:clamp(28px,5vw,42px);font-weight:700;color:var(--navy);letter-spacing:-1px;line-height:1.2;margin-bottom:1rem">Know the <span style="color:var(--teal)">real cost</span> of college<br>before you commit</h1>
+          <p style="font-size:16px;color:var(--gray-600);max-width:500px;margin:0 auto 2rem;line-height:1.7">Most students don't understand what their loans will actually cost them monthly until after graduation. Gradwise shows you the full financial picture — monthly payments, debt-to-income ratio, and a personalized value score — before you sign anything.</p>
+          <button onclick="goWizard(0)" style="padding:16px 40px;background:var(--navy);color:white;border:none;border-radius:12px;font-size:16px;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:1rem">Get Started — It's Free →</button>
+          <div style="font-size:12px;color:var(--gray-400)">Takes about 5 minutes · No account needed</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:1.5rem">
+          <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center;box-shadow:var(--shadow-sm)">
+            <div style="font-size:28px;font-weight:700;color:var(--teal);margin-bottom:6px">6,000+</div>
+            <div style="font-size:13px;font-weight:500;color:var(--navy);margin-bottom:4px">Schools in database</div>
+            <div style="font-size:11px;color:var(--gray-400)">Live data from U.S. Dept. of Education</div>
+          </div>
+          <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center;box-shadow:var(--shadow-sm)">
+            <div style="font-size:28px;font-weight:700;color:var(--teal);margin-bottom:6px">60+</div>
+            <div style="font-size:13px;font-weight:500;color:var(--navy);margin-bottom:4px">Career paths</div>
+            <div style="font-size:11px;color:var(--gray-400)">Salary data from Bureau of Labor Statistics</div>
+          </div>
+          <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center;box-shadow:var(--shadow-sm)">
+            <div style="font-size:28px;font-weight:700;color:var(--teal);margin-bottom:6px">5 min</div>
+            <div style="font-size:13px;font-weight:500;color:var(--navy);margin-bottom:4px">To a full comparison</div>
+            <div style="font-size:11px;color:var(--gray-400)">Guided step-by-step experience</div>
+          </div>
+        </div>
+        <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;padding:1.5rem;margin-bottom:14px;box-shadow:var(--shadow-sm)">
+          <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:1rem">How it works</div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;gap:12px;align-items:center"><div style="width:28px;height:28px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:700;flex-shrink:0">1</div><div style="font-size:13px;color:var(--gray-600);line-height:1.5"><strong style="color:var(--navy)">Search your schools</strong> — real tuition, room &amp; board, and grad rates load automatically from federal data</div></div>
+            <div style="display:flex;gap:12px;align-items:center"><div style="width:28px;height:28px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:700;flex-shrink:0">2</div><div style="font-size:13px;color:var(--gray-600);line-height:1.5"><strong style="color:var(--navy)">Pick your major and career</strong> — salary benchmarks from BLS shape your personal debt-to-income calculation</div></div>
+            <div style="display:flex;gap:12px;align-items:center"><div style="width:28px;height:28px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:700;flex-shrink:0">3</div><div style="font-size:13px;color:var(--gray-600);line-height:1.5"><strong style="color:var(--navy)">Model your scenario</strong> — adjust salary, interest rate, and repayment term to stress-test outcomes</div></div>
+            <div style="display:flex;gap:12px;align-items:center"><div style="width:28px;height:28px;background:var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:700;flex-shrink:0">4</div><div style="font-size:13px;color:var(--gray-600);line-height:1.5"><strong style="color:var(--navy)">See your results</strong> — ranked by the Gradwise Value Score, personalized to your career and financial situation</div></div>
+          </div>
+        </div>
+        <div style="background:var(--amber-light);border:1px solid rgba(239,159,39,0.3);border-radius:10px;padding:12px 16px;font-size:11px;color:#633806;line-height:1.6;margin-bottom:1.5rem">
+          <strong>Important:</strong> Gradwise is an independent college affordability estimation tool for research and informational purposes only. It is <strong>not financial advice</strong> and is not provided by a licensed financial advisor. Always consult your school's financial aid office before making enrollment decisions.
+        </div>
+        <div style="text-align:center;padding-bottom:2rem">
+          <button onclick="goWizard(0)" style="padding:16px 40px;background:var(--navy);color:white;border:none;border-radius:12px;font-size:16px;font-weight:600;cursor:pointer;font-family:inherit">Get Started — It's Free →</button>
+        </div>
+      </div>
+
       <!-- STEP 0: SCHOOLS -->
-      <div class="wizard-step active" id="wstep0">
+      <div class="wizard-step" id="wstep0">
         <div class="wizard-header">
           <div class="wizard-progress">
             <div class="wp-step"><div class="wp-num active" id="wn0">1</div><div class="wp-label active" id="wl0">Schools</div></div>
@@ -743,7 +789,9 @@ function goWizard(step) {
   }
   if(step===3) renderResults();
   document.querySelectorAll('.wizard-step').forEach(s=>s.classList.remove('active'));
-  if(step==='email') {
+  if(step==='landing') {
+    document.getElementById('wstep-landing').classList.add('active');
+  } else if(step==='email') {
     document.getElementById('wstep-email').classList.add('active');
   } else {
     document.getElementById('wstep'+step).classList.add('active');
