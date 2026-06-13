@@ -56,11 +56,8 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--gray-50); 
 .topbar { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 2rem; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
 .topbar-title { font-size: 15px; font-weight: 600; color: var(--navy); }
 .topbar-right { display: flex; align-items: center; gap: 12px; }
-.view-toggle { display: flex; background: var(--gray-100); border-radius: 20px; padding: 3px; }
-.view-btn { padding: 4px 12px; border-radius: 16px; font-size: 12px; font-weight: 500; cursor: pointer; border: none; background: transparent; color: var(--gray-600); transition: all .15s; font-family: inherit; }
-.view-btn.active { background: var(--white); color: var(--navy); box-shadow: var(--shadow-sm); }
 .topbar-badge { font-size: 11px; background: var(--teal-light); color: var(--teal-dark); padding: 3px 9px; border-radius: 20px; font-weight: 500; }
-.page { padding: 2rem; flex: 1; max-width: 780px; margin: 0 auto; width: 100%; }
+.page { padding: 2rem; flex: 1; max-width: 780px; margin: 0 auto; width: 100%; padding-bottom: 6rem; }
 
 /* ── PAGE SECTIONS ── */
 .page-section { display: none; }
@@ -70,30 +67,22 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--gray-50); 
 .wizard-step { display: none; }
 .wizard-step.active { display: block; }
 
-/* ── DISCLAIMER BANNER ── */
-.disclaimer-banner {
-  background: var(--amber-light); border: 1px solid rgba(239,159,39,0.3);
-  border-radius: 10px; padding: 12px 16px; margin-bottom: 1.5rem;
-  display: flex; align-items: flex-start; gap: 10px;
-}
-.disclaimer-banner svg { flex-shrink: 0; margin-top: 1px; color: #BA7517; }
-.disclaimer-banner-text { font-size: 12px; color: #633806; line-height: 1.6; }
-.disclaimer-banner-text strong { font-weight: 600; }
+/* ── PROGRESS BAR ── */
+.progress-bar { display: flex; align-items: center; margin-bottom: 1.75rem; gap: 0; }
+.pb-step { display: flex; flex-direction: column; align-items: center; flex: 1; position: relative; }
+.pb-num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; transition: all .25s; background: var(--gray-200); color: var(--gray-400); z-index: 1; }
+.pb-num.active { background: var(--navy); color: white; box-shadow: 0 0 0 3px rgba(15,31,61,0.15); }
+.pb-num.done { background: var(--teal); color: white; }
+.pb-label { font-size: 10px; font-weight: 500; color: var(--gray-400); margin-top: 4px; white-space: nowrap; }
+.pb-label.active { color: var(--navy); font-weight: 600; }
+.pb-label.done { color: var(--teal-dark); }
+.pb-line { flex: 1; height: 2px; background: var(--gray-200); margin-bottom: 16px; transition: background .25s; }
+.pb-line.done { background: var(--teal); }
 
-/* ── WIZARD ── */
-.wizard-header { margin-bottom: 2rem; }
-.wizard-progress { display: flex; align-items: center; margin-bottom: 1.5rem; }
-.wp-step { display: flex; align-items: center; gap: 8px; }
-.wp-num { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; transition: all .2s; background: var(--gray-200); color: var(--gray-400); }
-.wp-num.active { background: var(--navy); color: white; }
-.wp-num.done { background: var(--teal); color: white; }
-.wp-label { font-size: 12px; font-weight: 500; color: var(--gray-400); white-space: nowrap; }
-.wp-label.active { color: var(--navy); }
-.wp-label.done { color: var(--teal-dark); }
-.wp-line { flex: 1; height: 2px; background: var(--gray-200); margin: 0 10px; border-radius: 1px; }
-.wp-line.done { background: var(--teal); }
-.wizard-title { font-size: 26px; font-weight: 700; color: var(--navy); letter-spacing: -0.5px; margin-bottom: 6px; }
-.wizard-sub { font-size: 14px; color: var(--gray-600); line-height: 1.6; }
+/* ── WIZARD HEADER ── */
+.wizard-header { margin-bottom: 1.5rem; }
+.wizard-title { font-size: 24px; font-weight: 700; color: var(--navy); letter-spacing: -0.5px; margin-bottom: 6px; }
+.wizard-sub { font-size: 13px; color: var(--gray-600); line-height: 1.6; }
 
 /* ── CARDS ── */
 .card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; margin-bottom: 14px; box-shadow: var(--shadow-sm); }
@@ -120,92 +109,146 @@ body { font-family: 'Inter', system-ui, sans-serif; background: var(--gray-50); 
 .cc-toggle-title { font-size: 13px; font-weight: 600; color: var(--blue); margin-bottom: 3px; }
 .cc-toggle-sub { font-size: 12px; color: var(--gray-600); line-height: 1.5; }
 
-/* ── SCHOOL CARDS ── */
-.school-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem 1.5rem; margin-bottom: 12px; box-shadow: var(--shadow-sm); }
+/* ── SCHOOL CARDS (compact) ── */
+.school-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1rem 1.25rem; margin-bottom: 10px; box-shadow: var(--shadow-sm); }
 .school-card.api-loaded { border-left: 3px solid var(--teal); }
 .school-card.cc-card { border-left: 3px solid var(--blue); }
-.sc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-.sc-name { font-size: 15px; font-weight: 600; color: var(--navy); }
+.sc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+.sc-name { font-size: 14px; font-weight: 600; color: var(--navy); }
 .sc-name.blue { color: var(--blue); }
 .sc-loc { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
-.sc-badge { font-size: 10px; padding: 2px 7px; border-radius: 10px; font-weight: 500; margin-top: 4px; display: inline-block; }
-.sc-badge.live { background: var(--teal-light); color: var(--teal-dark); }
-.sc-badge.cached { background: var(--amber-light); color: #633806; }
-.sc-remove { font-size: 12px; color: var(--gray-400); background: none; border: none; cursor: pointer; padding: 4px 10px; border-radius: 6px; font-family: inherit; }
+.sc-remove { font-size: 12px; color: var(--gray-400); background: none; border: none; cursor: pointer; padding: 4px 8px; border-radius: 6px; font-family: inherit; }
 .sc-remove:hover { background: var(--red-light); color: var(--red); }
-.sc-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; }
-.sc-stat { background: var(--gray-50); border-radius: 8px; padding: 10px; }
-.sc-stat-label { font-size: 9px; color: var(--gray-400); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 4px; }
-.sc-stat-val { font-size: 14px; font-weight: 600; color: var(--navy); }
-.sc-divider { font-size: 10px; color: var(--gray-400); margin-bottom: 10px; text-transform: uppercase; letter-spacing: .05em; font-weight: 500; }
-.sc-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.field { display: flex; flex-direction: column; gap: 5px; }
-.field-label { font-size: 11px; font-weight: 500; color: var(--gray-600); }
-.field-input { font-size: 13px; font-family: inherit; border: 1px solid var(--gray-200); border-radius: 8px; padding: 8px 10px; background: var(--white); color: var(--gray-800); width: 100%; }
-.field-input:focus { outline: none; border-color: var(--teal); }
+.sc-stats-compact { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.sc-stat { background: var(--gray-50); border-radius: 8px; padding: 8px 10px; }
+.sc-stat-label { font-size: 9px; color: var(--gray-400); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 3px; }
+.sc-stat-val { font-size: 13px; font-weight: 600; color: var(--navy); }
 .empty-state { text-align: center; padding: 3rem 1rem; color: var(--gray-400); font-size: 14px; border: 1.5px dashed var(--gray-200); border-radius: 14px; margin-bottom: 12px; line-height: 2; }
 
-/* ── MAJOR TABS ── */
-.major-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.25rem; }
-.major-tab { padding: 7px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; cursor: pointer; border: 1.5px solid var(--gray-200); background: var(--white); color: var(--gray-600); transition: all .15s; font-family: inherit; }
-.major-tab:hover { border-color: var(--teal); color: var(--teal-dark); }
-.major-tab.active { background: var(--navy); border-color: var(--navy); color: white; }
+/* ── INDUSTRY GRID ── */
+.industry-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 4px; }
+.industry-tile { border: 1.5px solid var(--gray-200); border-radius: 14px; padding: 16px 14px; cursor: pointer; background: var(--white); transition: all .15s; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.industry-tile:hover { border-color: var(--teal); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.industry-tile.selected { border-color: var(--teal); background: var(--teal-light); }
+.industry-icon { font-size: 24px; line-height: 1; }
+.industry-label { font-size: 13px; font-weight: 600; color: var(--gray-800); line-height: 1.3; }
+.industry-tile.selected .industry-label { color: var(--teal-dark); }
 
 /* ── CAREER GRID ── */
 .career-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.career-pill { border: 1.5px solid var(--gray-200); border-radius: 12px; padding: 14px; cursor: pointer; background: var(--white); transition: all .15s; box-shadow: var(--shadow-sm); }
-.career-pill:hover { border-color: var(--teal); transform: translateY(-1px); box-shadow: var(--shadow-md); }
-.career-pill.selected { border-color: var(--teal); background: var(--teal-light); }
-.cp-major { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--gray-400); margin-bottom: 4px; }
-.cp-title { font-size: 13px; font-weight: 500; color: var(--gray-800); margin-bottom: 3px; }
-.career-pill.selected .cp-title { color: var(--teal-dark); }
-.cp-salary { font-size: 11px; color: var(--gray-400); }
-.career-pill.selected .cp-salary { color: var(--teal); }
+.career-card { border: 1.5px solid var(--gray-200); border-radius: 12px; padding: 14px; cursor: pointer; background: var(--white); transition: all .15s; box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 12px; }
+.career-card:hover { border-color: var(--teal); box-shadow: var(--shadow-md); }
+.career-card.selected { border-color: var(--teal); background: var(--teal-light); }
+.career-card-icon { font-size: 20px; flex-shrink: 0; }
+.career-card-body { flex: 1; min-width: 0; }
+.cc-title { font-size: 13px; font-weight: 600; color: var(--gray-800); margin-bottom: 3px; }
+.career-card.selected .cc-title { color: var(--teal-dark); }
+.cc-salary { font-size: 11px; color: var(--gray-400); }
+.cc-source { font-size: 10px; color: var(--gray-400); }
+.career-card.selected .cc-salary { color: var(--teal); }
+.custom-salary-card { border: 1.5px dashed var(--gray-200); }
+.custom-salary-card.selected { border-color: var(--teal); border-style: solid; }
 
-/* ── SLIDERS ── */
-.slider-group { margin-bottom: 2rem; }
-.slider-group:last-child { margin-bottom: 0; }
+/* ── DEGREE GRID ── */
+.degree-grid { display: flex; flex-direction: column; gap: 8px; }
+.degree-item { border: 1.5px solid var(--gray-200); border-radius: 12px; padding: 14px 16px; cursor: pointer; background: var(--white); transition: all .15s; display: flex; align-items: center; justify-content: space-between; }
+.degree-item:hover { border-color: var(--teal); }
+.degree-item.selected { border-color: var(--teal); background: var(--teal-light); }
+.degree-name { font-size: 14px; font-weight: 500; color: var(--gray-800); }
+.degree-item.selected .degree-name { color: var(--teal-dark); font-weight: 600; }
+.degree-check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--gray-200); display: flex; align-items: center; justify-content: center; transition: all .15s; }
+.degree-item.selected .degree-check { background: var(--teal); border-color: var(--teal); color: white; font-size: 11px; }
+
+/* ── PAY PLAN ── */
+.situation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1.25rem; }
+.sit-btn { border: 1.5px solid var(--gray-200); border-radius: 10px; padding: 12px 14px; cursor: pointer; background: var(--white); font-size: 13px; font-weight: 500; color: var(--gray-700); text-align: center; transition: all .15s; font-family: inherit; }
+.sit-btn:hover { border-color: var(--teal); color: var(--teal-dark); }
+.sit-btn.selected { border-color: var(--teal); background: var(--teal-light); color: var(--teal-dark); }
+.choice-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem; }
+.choice-btn { border: 1.5px solid var(--gray-200); border-radius: 20px; padding: 7px 14px; cursor: pointer; background: var(--white); font-size: 12px; font-weight: 500; color: var(--gray-600); transition: all .15s; font-family: inherit; }
+.choice-btn:hover { border-color: var(--teal); color: var(--teal-dark); }
+.choice-btn.selected { border-color: var(--teal); background: var(--teal-light); color: var(--teal-dark); }
+.field-group { margin-bottom: 1.25rem; }
+.field-label { font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 10px; display: block; }
+.field-sub { font-size: 12px; color: var(--gray-600); margin-bottom: 10px; }
+.custom-input-wrap { display: flex; gap: 8px; margin-top: 8px; align-items: center; }
+.custom-input { padding: 10px 14px; border: 1.5px solid var(--gray-200); border-radius: 10px; font-size: 14px; font-family: inherit; color: var(--gray-800); width: 160px; }
+.custom-input:focus { outline: none; border-color: var(--teal); }
+
+/* ── BORROW ESTIMATE ── */
+.borrow-box { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); border-radius: 14px; padding: 1.25rem 1.5rem; margin-top: 1.25rem; }
+.borrow-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,0.5); margin-bottom: 12px; }
+.borrow-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: rgba(255,255,255,0.7); padding: 5px 0; }
+.borrow-row.total { border-top: 1px solid rgba(255,255,255,0.15); margin-top: 8px; padding-top: 12px; color: white; font-weight: 600; font-size: 15px; }
+.borrow-row.total .borrow-val { font-size: 22px; font-weight: 700; color: var(--teal); }
+.borrow-val { color: rgba(255,255,255,0.9); }
+.borrow-deduct { color: #6EE7B7; }
+.assumptions-box { background: var(--gray-50); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.25rem; margin-top: 14px; }
+.assump-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--gray-600); margin-bottom: 10px; }
+.assump-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--gray-600); padding: 5px 0; border-bottom: 1px solid var(--gray-100); }
+.assump-row:last-child { border-bottom: none; }
+.assump-val { font-weight: 600; color: var(--navy); display: flex; align-items: center; gap: 6px; }
+.edit-btn { background: none; border: none; cursor: pointer; color: var(--teal); font-size: 12px; padding: 2px 6px; border-radius: 4px; }
+.edit-btn:hover { background: var(--teal-light); }
+
+/* ── SCENARIO SLIDERS (for edit mode) ── */
+.slider-group { margin-bottom: 1.25rem; }
 .slider-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.slider-label { font-size: 14px; color: var(--gray-600); font-weight: 500; }
-.slider-val { font-size: 18px; font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums; }
+.slider-label { font-size: 13px; color: var(--gray-600); font-weight: 500; }
+.slider-val { font-size: 17px; font-weight: 700; color: var(--navy); }
 input[type=range] { width: 100%; height: 5px; border-radius: 3px; background: var(--gray-200); appearance: none; cursor: pointer; }
 input[type=range]::-webkit-slider-thumb { appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--navy); cursor: pointer; box-shadow: var(--shadow-sm); border: 2px solid white; }
-.slider-hint { font-size: 11px; color: var(--gray-400); margin-top: 6px; }
+.slider-hint { font-size: 11px; color: var(--gray-400); margin-top: 5px; }
 
-/* ── EMAIL GATE ── */
-.email-gate { text-align: center; padding: 2.5rem 2rem; }
-.email-gate-icon { width: 64px; height: 64px; background: var(--teal-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; }
-.email-gate h2 { font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 8px; letter-spacing: -0.3px; }
-.email-gate p { font-size: 14px; color: var(--gray-600); max-width: 400px; margin: 0 auto 1.5rem; line-height: 1.7; }
-.email-input-wrap { display: flex; gap: 10px; max-width: 420px; margin: 0 auto 12px; }
-.email-input { flex: 1; padding: 13px 16px; border: 1.5px solid var(--gray-200); border-radius: 10px; font-size: 14px; font-family: inherit; color: var(--gray-800); }
+/* ── EMAIL SECTION ── */
+.email-section { background: var(--gray-50); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; margin-top: 1.5rem; text-align: center; }
+.email-section h3 { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+.email-section p { font-size: 13px; color: var(--gray-600); margin-bottom: 14px; line-height: 1.5; }
+.email-input-wrap { display: flex; gap: 10px; max-width: 400px; margin: 0 auto 10px; }
+.email-input { flex: 1; padding: 12px 14px; border: 1.5px solid var(--gray-200); border-radius: 10px; font-size: 14px; font-family: inherit; color: var(--gray-800); }
 .email-input:focus { outline: none; border-color: var(--teal); }
-.email-submit { padding: 13px 24px; background: var(--navy); color: white; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; white-space: nowrap; }
-.email-submit:hover { background: var(--navy-light); }
+.email-submit { padding: 12px 20px; background: var(--navy); color: white; border: none; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; white-space: nowrap; }
 .email-skip { font-size: 12px; color: var(--gray-400); cursor: pointer; text-decoration: underline; background: none; border: none; font-family: inherit; display: block; margin: 0 auto; }
-.email-skip:hover { color: var(--gray-600); }
-.email-privacy { font-size: 11px; color: var(--gray-400); margin-top: 10px; }
 
 /* ── RESULTS ── */
-.scenario-bar { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; margin-bottom: 1.25rem; display: flex; gap: 20px; flex-wrap: wrap; box-shadow: var(--shadow-sm); }
+.results-heading { font-size: 22px; font-weight: 700; color: var(--navy); letter-spacing: -0.4px; margin-bottom: 6px; }
+.results-sub { font-size: 13px; color: var(--gray-600); margin-bottom: 1.25rem; }
+.scenario-bar { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 10px 16px; margin-bottom: 1rem; display: flex; gap: 16px; flex-wrap: wrap; box-shadow: var(--shadow-sm); }
 .sb-item { font-size: 12px; color: var(--gray-400); }
 .sb-item strong { color: var(--navy); }
-.dti-legend { display: flex; gap: 16px; margin-bottom: 1.25rem; flex-wrap: wrap; }
-.dti-li { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--gray-600); }
+.dti-legend { display: flex; gap: 14px; margin-bottom: 1rem; flex-wrap: wrap; }
+.dti-li { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--gray-600); }
 .dti-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.result-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; margin-bottom: 14px; position: relative; overflow: hidden; box-shadow: var(--shadow-sm); transition: box-shadow .15s; }
+.result-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 14px; position: relative; overflow: hidden; box-shadow: var(--shadow-sm); transition: box-shadow .15s; }
 .result-card:hover { box-shadow: var(--shadow-md); }
 .result-card.best { border: 2px solid var(--teal); }
 .result-card.cc-result { border: 2px solid var(--blue); }
-.best-badge { position: absolute; top: 0; right: 0; font-size: 10px; font-weight: 700; padding: 5px 14px; border-bottom-left-radius: 12px; color: white; letter-spacing: .06em; }
-.best-badge.green { background: var(--teal); }
-.best-badge.blue { background: var(--blue); }
-.rc-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
+.rc-summary { padding: 1.25rem 1.5rem; cursor: pointer; }
+.rc-summary:hover { background: var(--gray-50); }
+.risk-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 8px; }
+.risk-badge.best-value { background: var(--teal-light); color: var(--teal-dark); }
+.risk-badge.manageable { background: var(--amber-light); color: #7A4A00; }
+.risk-badge.high-risk { background: var(--red-light); color: var(--red); }
+.rc-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
 .rc-name { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
 .rc-loc { font-size: 12px; color: var(--gray-400); }
-.rc-data-badge { font-size: 10px; color: var(--teal-dark); background: var(--teal-light); padding: 2px 8px; border-radius: 10px; font-weight: 500; flex-shrink: 0; }
-.monthly-hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-.mh-left {}
+.rc-chevron { color: var(--gray-400); font-size: 18px; flex-shrink: 0; margin-top: 4px; transition: transform .2s; }
+.rc-chevron.open { transform: rotate(90deg); }
+.rc-hero-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
+.rc-monthly { font-size: 36px; font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums; line-height: 1; }
+.rc-monthly span { font-size: 15px; font-weight: 400; color: var(--gray-400); }
+.rc-dti-wrap { text-align: right; }
+.rc-dti-pct { font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.rc-dti-label { font-size: 11px; color: var(--gray-400); }
+.rc-comfort { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; margin-top: 6px; }
+.rc-comfort.comfortable { background: var(--teal-light); color: var(--teal-dark); }
+.rc-comfort.manageable { background: var(--amber-light); color: #7A4A00; }
+.rc-comfort.high-risk { background: var(--red-light); color: var(--red); }
+
+/* ── RESULT DETAIL (expanded) ── */
+.rc-detail { display: none; padding: 0 1.5rem 1.25rem; border-top: 1px solid var(--gray-100); }
+.rc-detail.open { display: block; }
+.monthly-hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); border-radius: 12px; padding: 1.25rem 1.5rem; margin-top: 14px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
 .mh-label { font-size: 11px; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
 .mh-amount { font-size: 38px; font-weight: 700; color: white; font-variant-numeric: tabular-nums; line-height: 1; }
 .mh-amount span { font-size: 16px; font-weight: 400; color: rgba(255,255,255,0.55); }
@@ -223,40 +266,44 @@ input[type=range]::-webkit-slider-thumb { appearance: none; width: 22px; height:
 .vs-bar-bg { flex: 1; height: 5px; border-radius: 3px; background: var(--gray-200); overflow: hidden; }
 .vs-bar-fill { height: 100%; border-radius: 3px; }
 .vs-bar-val { font-size: 10px; font-weight: 600; width: 32px; text-align: right; }
-.rc-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; }
+.rc-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
 .metric { background: var(--gray-50); border-radius: 10px; padding: 10px; }
 .metric-label { font-size: 9px; color: var(--gray-400); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; }
-.metric-value { font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; }
-.metric-value.green { color: var(--teal-dark); }
-.metric-value.amber { color: #BA7517; }
-.metric-value.red { color: var(--red); }
+.metric-value { font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; }
 .dti-bar-wrap { margin-bottom: 12px; }
 .dti-bar-label { font-size: 12px; color: var(--gray-400); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
 .dti-bar-label strong { font-size: 14px; }
 .dti-bar-bg { height: 8px; border-radius: 4px; background: var(--gray-200); overflow: hidden; }
 .dti-bar-fill { height: 100%; border-radius: 4px; transition: width .6s ease; }
-.rc-footer { font-size: 11px; color: var(--gray-400); display: flex; gap: 14px; flex-wrap: wrap; padding-top: 10px; border-top: 1px solid var(--gray-100); }
+.rc-footer { font-size: 11px; color: var(--gray-400); display: flex; gap: 12px; flex-wrap: wrap; padding-top: 10px; border-top: 1px solid var(--gray-100); }
 .rc-footer span strong { color: var(--gray-600); }
 
-/* ── TRUST PANEL ── */
+/* ── TRUST & LEGAL ── */
 .trust-panel { background: var(--gray-50); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 14px; }
 .trust-title { font-size: 11px; font-weight: 600; color: var(--gray-600); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px; }
 .trust-items { display: flex; flex-direction: column; gap: 6px; }
 .trust-item { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: var(--gray-600); line-height: 1.5; }
 .trust-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); flex-shrink: 0; margin-top: 4px; }
+.legal-collapsible { border: 1px solid var(--border); border-radius: 12px; margin-bottom: 14px; overflow: hidden; }
+.legal-toggle { width: 100%; background: none; border: none; padding: 12px 16px; font-size: 12px; font-weight: 600; color: var(--gray-600); text-align: left; cursor: pointer; font-family: inherit; display: flex; justify-content: space-between; align-items: center; }
+.legal-toggle:hover { background: var(--gray-50); }
+.legal-body { display: none; padding: 0 16px 14px; font-size: 11px; color: var(--gray-400); line-height: 1.7; }
+.legal-body.open { display: block; }
 
-/* ── LEGAL DISCLAIMER ── */
-.legal-disclaimer { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 14px; }
-.legal-disclaimer h4 { font-size: 12px; font-weight: 600; color: var(--gray-800); margin-bottom: 8px; text-transform: uppercase; letter-spacing: .05em; }
-.legal-disclaimer p { font-size: 11px; color: var(--gray-400); line-height: 1.7; }
-
-/* ── NAV BUTTONS ── */
-.nav-row { display: flex; gap: 10px; margin-top: 2rem; }
-.btn-primary { flex: 1; padding: 14px; background: var(--navy); color: white; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; transition: background .15s; }
+/* ── BUTTONS ── */
+.btn-primary { width: 100%; padding: 15px; background: var(--navy); color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; transition: background .15s; min-height: 52px; }
 .btn-primary:hover { background: var(--navy-light); }
-.btn-secondary { padding: 14px 20px; background: white; color: var(--gray-600); border: 1px solid var(--gray-200); border-radius: 10px; font-size: 15px; cursor: pointer; font-family: inherit; transition: all .15s; }
+.btn-primary.teal { background: var(--teal); }
+.btn-primary.teal:hover { background: var(--teal-dark); }
+.btn-secondary { padding: 15px 20px; background: white; color: var(--gray-600); border: 1px solid var(--gray-200); border-radius: 12px; font-size: 14px; cursor: pointer; font-family: inherit; transition: all .15s; min-height: 52px; }
 .btn-secondary:hover { background: var(--gray-50); }
+.nav-row { display: flex; gap: 10px; margin-top: 1.5rem; }
 .restart-btn { display: block; margin: 1rem auto 0; font-size: 13px; color: var(--gray-400); background: none; border: none; cursor: pointer; text-decoration: underline; font-family: inherit; }
+
+/* ── STICKY BOTTOM ── */
+.sticky-bottom { position: fixed; bottom: 0; left: var(--sidebar-w); right: 0; background: var(--white); border-top: 1px solid var(--border); padding: 12px 2rem; z-index: 40; display: none; }
+.sticky-bottom.show { display: block; }
+.sticky-bottom .btn-primary { max-width: 500px; margin: 0 auto; display: block; }
 
 /* ── INFO PAGES ── */
 .info-hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); border-radius: 16px; padding: 2rem 2.5rem; margin-bottom: 1.5rem; }
@@ -268,12 +315,15 @@ input[type=range]::-webkit-slider-thumb { appearance: none; width: 22px; height:
 @media (max-width: 768px) {
   .sidebar { display: none; }
   .main-wrap { margin-left: 0; }
-  .sc-stats { grid-template-columns: repeat(2,1fr); }
+  .sticky-bottom { left: 0; }
+  .industry-grid { grid-template-columns: 1fr 1fr; }
   .career-grid { grid-template-columns: 1fr; }
-  .rc-metrics { grid-template-columns: repeat(2,1fr); }
+  .rc-metrics { grid-template-columns: repeat(2, 1fr); }
   .monthly-hero { flex-direction: column; }
   .mh-right { text-align: left; }
   .email-input-wrap { flex-direction: column; }
+  .situation-grid { grid-template-columns: 1fr; }
+  .sc-stats-compact { grid-template-columns: repeat(2, 1fr); }
 }
 </style>
 </head>
@@ -287,7 +337,7 @@ input[type=range]::-webkit-slider-thumb { appearance: none; width: 22px; height:
   </div>
   <nav class="sidebar-nav">
     <div class="nav-section">Tools</div>
-    <div class="nav-item active" onclick="showSection('compare',this);goWizard('landing')">
+    <div class="nav-item active" onclick="showSection('compare',this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
       Compare Schools
     </div>
@@ -308,7 +358,7 @@ input[type=range]::-webkit-slider-thumb { appearance: none; width: 22px; height:
   <div class="sidebar-footer">
     <div>© 2025 Gradwise. All rights reserved.</div>
     <div><a href="mailto:hello@gradwise.io">hello@gradwise.io</a></div>
-    <div style="margin-top:6px;font-size:9px;line-height:1.6">Gradwise is an independent college affordability estimation tool. Not a licensed financial advisor. Not affiliated with any university or government agency.</div>
+    <div style="margin-top:6px;font-size:9px;line-height:1.6">Independent college affordability tool. Not financial advice. Not affiliated with any university or government agency.</div>
   </div>
 </aside>
 
@@ -317,10 +367,6 @@ input[type=range]::-webkit-slider-thumb { appearance: none; width: 22px; height:
   <div class="topbar">
     <div class="topbar-title" id="topbarTitle">Compare Schools</div>
     <div class="topbar-right">
-      <div class="view-toggle">
-        <button class="view-btn active" onclick="setView('student',this)">Student View</button>
-        <button class="view-btn" onclick="setView('family',this)">Family View</button>
-      </div>
       <div class="topbar-badge">Free · No sign-up required</div>
     </div>
   </div>
@@ -330,78 +376,47 @@ input[type=range]::-webkit-slider-thumb { appearance: none; width: 22px; height:
     <!-- ═══ COMPARE ═══ -->
     <div class="page-section active" id="section-compare">
 
-      <!-- DISCLAIMER ALWAYS VISIBLE -->
-      <div class="disclaimer-banner">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <div class="disclaimer-banner-text">
-          <strong>Important:</strong> Gradwise is an independent college affordability estimation tool for research purposes only. It is <strong>not financial advice</strong> and is not provided by a licensed financial advisor, planner, or counselor. All figures are estimates based on publicly available federal data. Always consult your school's financial aid office and a qualified advisor before making enrollment decisions.
-        </div>
-      </div>
-
-      <!-- WIZARD STEPS -->
-
-      <!-- LANDING PAGE -->
-      <div class="wizard-step active" id="wstep-landing">
-        <div style="text-align:center;padding:3rem 1rem 2rem">
-          <div style="display:inline-block;background:var(--teal-light);color:var(--teal-dark);font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:1.25rem">Free · No sign-up required</div>
-          <h1 style="font-size:clamp(28px,5vw,42px);font-weight:700;color:var(--navy);letter-spacing:-1px;line-height:1.2;margin-bottom:1rem">Know the <span style="color:var(--teal)">real cost</span> of college<br>before you commit</h1>
-          <p style="font-size:16px;color:var(--gray-600);max-width:500px;margin:0 auto 2rem;line-height:1.7">Most students don't understand what their loans will actually cost them monthly until after graduation. Gradwise shows you the full financial picture — monthly payments, debt-to-income ratio, and a personalized value score — before you sign anything.</p>
-          <button onclick="goWizard(0)" style="padding:16px 40px;background:var(--navy);color:white;border:none;border-radius:12px;font-size:16px;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:1rem">Get Started — It's Free →</button>
-          <div style="font-size:12px;color:var(--gray-400)">Takes about 5 minutes · No account needed</div>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:1.5rem">
-          <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center;box-shadow:var(--shadow-sm)">
-            <div style="font-size:28px;font-weight:700;color:var(--teal);margin-bottom:6px">6,000+</div>
-            <div style="font-size:13px;font-weight:500;color:var(--navy);margin-bottom:4px">Schools in database</div>
-            <div style="font-size:11px;color:var(--gray-400)">Live data from U.S. Dept. of Education</div>
-          </div>
-          <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center;box-shadow:var(--shadow-sm)">
-            <div style="font-size:28px;font-weight:700;color:var(--teal);margin-bottom:6px">60+</div>
-            <div style="font-size:13px;font-weight:500;color:var(--navy);margin-bottom:4px">Career paths</div>
-            <div style="font-size:11px;color:var(--gray-400)">Salary data from Bureau of Labor Statistics</div>
-          </div>
-          <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center;box-shadow:var(--shadow-sm)">
-            <div style="font-size:28px;font-weight:700;color:var(--teal);margin-bottom:6px">5 min</div>
-            <div style="font-size:13px;font-weight:500;color:var(--navy);margin-bottom:4px">To a full comparison</div>
-            <div style="font-size:11px;color:var(--gray-400)">Guided step-by-step experience</div>
-          </div>
-        </div>
-        <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;padding:1.5rem;margin-bottom:14px;box-shadow:var(--shadow-sm)">
-          <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:1rem">How it works</div>
-          <div style="display:flex;flex-direction:column;gap:14px">
-            <div style="display:flex;gap:12px;align-items:center"><div style="width:28px;height:28px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:700;flex-shrink:0">1</div><div style="font-size:13px;color:var(--gray-600);line-height:1.5"><strong style="color:var(--navy)">Search your schools</strong> — real tuition, room &amp; board, and grad rates load automatically from federal data</div></div>
-            <div style="display:flex;gap:12px;align-items:center"><div style="width:28px;height:28px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:700;flex-shrink:0">2</div><div style="font-size:13px;color:var(--gray-600);line-height:1.5"><strong style="color:var(--navy)">Pick your major and career</strong> — salary benchmarks from BLS shape your personal debt-to-income calculation</div></div>
-            <div style="display:flex;gap:12px;align-items:center"><div style="width:28px;height:28px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:700;flex-shrink:0">3</div><div style="font-size:13px;color:var(--gray-600);line-height:1.5"><strong style="color:var(--navy)">Model your scenario</strong> — adjust salary, interest rate, and repayment term to stress-test outcomes</div></div>
-            <div style="display:flex;gap:12px;align-items:center"><div style="width:28px;height:28px;background:var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:700;flex-shrink:0">4</div><div style="font-size:13px;color:var(--gray-600);line-height:1.5"><strong style="color:var(--navy)">See your results</strong> — ranked by the Gradwise Value Score, personalized to your career and financial situation</div></div>
-          </div>
-        </div>
-        <div style="background:var(--amber-light);border:1px solid rgba(239,159,39,0.3);border-radius:10px;padding:12px 16px;font-size:11px;color:#633806;line-height:1.6;margin-bottom:1.5rem">
-          <strong>Important:</strong> Gradwise is an independent college affordability estimation tool for research and informational purposes only. It is <strong>not financial advice</strong> and is not provided by a licensed financial advisor. Always consult your school's financial aid office before making enrollment decisions.
-        </div>
-        <div style="text-align:center;padding-bottom:2rem">
-          <button onclick="goWizard(0)" style="padding:16px 40px;background:var(--navy);color:white;border:none;border-radius:12px;font-size:16px;font-weight:600;cursor:pointer;font-family:inherit">Get Started — It's Free →</button>
-        </div>
-      </div>
-
       <!-- STEP 0: SCHOOLS -->
-      <div class="wizard-step" id="wstep0">
+      <div class="wizard-step active" id="wstep0">
         <div class="wizard-header">
-          <div class="wizard-progress">
-            <div class="wp-step"><div class="wp-num active" id="wn0">1</div><div class="wp-label active" id="wl0">Schools</div></div>
-            <div class="wp-line" id="wline0"></div>
-            <div class="wp-step"><div class="wp-num" id="wn1">2</div><div class="wp-label" id="wl1">Major & Career</div></div>
-            <div class="wp-line" id="wline1"></div>
-            <div class="wp-step"><div class="wp-num" id="wn2">3</div><div class="wp-label" id="wl2">Your Scenario</div></div>
-            <div class="wp-line" id="wline2"></div>
-            <div class="wp-step"><div class="wp-num" id="wn3">4</div><div class="wp-label" id="wl3">Results</div></div>
+          <div class="progress-bar">
+            <div class="pb-step">
+              <div class="pb-num active">1</div>
+              <div class="pb-label active">Schools</div>
+            </div>
+            <div class="pb-line"></div>
+            <div class="pb-step">
+              <div class="pb-num">2</div>
+              <div class="pb-label">Industry</div>
+            </div>
+            <div class="pb-line"></div>
+            <div class="pb-step">
+              <div class="pb-num">3</div>
+              <div class="pb-label">Career</div>
+            </div>
+            <div class="pb-line"></div>
+            <div class="pb-step">
+              <div class="pb-num">4</div>
+              <div class="pb-label">Degree</div>
+            </div>
+            <div class="pb-line"></div>
+            <div class="pb-step">
+              <div class="pb-num">5</div>
+              <div class="pb-label">Pay Plan</div>
+            </div>
+            <div class="pb-line"></div>
+            <div class="pb-step">
+              <div class="pb-num">6</div>
+              <div class="pb-label">Results</div>
+            </div>
           </div>
           <div class="wizard-title">Which schools are you considering?</div>
-          <div class="wizard-sub">Search any college by name, nickname, or abbreviation. Tuition, room & board, admissions, and graduation data load automatically from the U.S. Dept. of Education. Add up to 4 schools.</div>
+          <div class="wizard-sub">Add up to 4 schools. Tuition, grad rates, and financial data load automatically from the U.S. Dept. of Education.</div>
         </div>
 
         <div class="search-wrap">
           <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          <input class="search-input" id="schoolSearch" type="text" placeholder="Try: Harvard, Penn State, Rutgers, UT Austin, UCLA, NYU..." oninput="onSearch(this.value)" autocomplete="off"/>
+          <input class="search-input" id="schoolSearch" type="text" placeholder="Search schools... try Harvard, Rutgers, Penn State, NYU" oninput="onSearch(this.value)" autocomplete="off"/>
         </div>
         <div class="dropdown" id="dd"></div>
         <div style="margin-bottom:14px">
@@ -415,133 +430,164 @@ input[type=range]::-webkit-slider-thumb { appearance: none; width: 22px; height:
           <input type="checkbox" id="ccMode" onchange="renderSchoolList()"/>
           <div>
             <div class="cc-toggle-title">🏫 Also compare a Community College → Transfer pathway</div>
-            <div class="cc-toggle-sub">See how 2 years at a community college + 2 years at a 4-year school compares financially. Often saves $20–40k and earns the same degree.</div>
+            <div class="cc-toggle-sub">See how 2 years at a community college + 2 years at a 4-year school compares. Often saves $20–40k and earns the same degree.</div>
           </div>
         </label>
 
         <div id="schoolList"><div class="empty-state">🏛️<br>Search above to add your first school</div></div>
-        <div class="nav-row"><button class="btn-primary" onclick="goWizard(1)">Continue to Major & Career →</button></div>
+        <div class="nav-row">
+          <button class="btn-primary" onclick="goStep(1)">Continue to Industry →</button>
+        </div>
       </div>
 
-      <!-- STEP 1: MAJOR & CAREER -->
+      <!-- STEP 1: INDUSTRY -->
       <div class="wizard-step" id="wstep1">
         <div class="wizard-header">
-          <div class="wizard-progress">
-            <div class="wp-step"><div class="wp-num done" id="wn0b">✓</div><div class="wp-label done">Schools</div></div>
-            <div class="wp-line done"></div>
-            <div class="wp-step"><div class="wp-num active" id="wn1b">2</div><div class="wp-label active">Major & Career</div></div>
-            <div class="wp-line" id="wline1b"></div>
-            <div class="wp-step"><div class="wp-num" id="wn2b">3</div><div class="wp-label">Your Scenario</div></div>
-            <div class="wp-line"></div>
-            <div class="wp-step"><div class="wp-num" id="wn3b">4</div><div class="wp-label">Results</div></div>
-          </div>
-          <div class="wizard-title">What's your major and career path?</div>
-          <div class="wizard-sub">Select your field of study, then pick the career path that fits your goals. This sets the salary benchmark used in your debt-to-income calculation.</div>
+          <div class="progress-bar" id="pb1"></div>
+          <div class="wizard-title">What field are you interested in?</div>
+          <div class="wizard-sub">Choose a broad field first. We'll use this to narrow down realistic career and degree options.</div>
         </div>
-        <div class="card">
-          <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:12px">Select your major</div>
-          <div class="major-tabs" id="majorTabs"></div>
-          <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:12px;margin-top:4px">Select your career path</div>
-          <div class="career-grid" id="careerGrid"></div>
-        </div>
+        <div class="industry-grid" id="industryGrid"></div>
         <div class="nav-row">
-          <button class="btn-secondary" onclick="goWizard(0)">← Back</button>
-          <button class="btn-primary" onclick="goWizard(2)">Continue to Scenario →</button>
+          <button class="btn-secondary" onclick="goStep(0)">← Back</button>
+          <button class="btn-primary" onclick="goStep(2)" style="flex:1">Continue to Career Path →</button>
         </div>
       </div>
 
-      <!-- STEP 2: SCENARIO -->
+      <!-- STEP 2: CAREER -->
       <div class="wizard-step" id="wstep2">
         <div class="wizard-header">
-          <div class="wizard-progress">
-            <div class="wp-step"><div class="wp-num done">✓</div><div class="wp-label done">Schools</div></div>
-            <div class="wp-line done"></div>
-            <div class="wp-step"><div class="wp-num done">✓</div><div class="wp-label done">Major & Career</div></div>
-            <div class="wp-line done"></div>
-            <div class="wp-step"><div class="wp-num active">3</div><div class="wp-label active">Your Scenario</div></div>
-            <div class="wp-line"></div>
-            <div class="wp-step"><div class="wp-num">4</div><div class="wp-label">Results</div></div>
-          </div>
-          <div class="wizard-title">Model your financial scenario</div>
-          <div class="wizard-sub">Adjust these three variables to test different outcomes — conservative, realistic, and optimistic. The debt-to-income calculation and value scores update based on what you set here.</div>
+          <div class="progress-bar" id="pb2"></div>
+          <div class="wizard-title">What career path are you considering?</div>
+          <div class="wizard-sub">Your career sets the salary benchmark used to estimate whether the debt is manageable.</div>
         </div>
-        <div class="card">
-          <div class="slider-group">
-            <div class="slider-row"><span class="slider-label">Expected starting salary</span><span class="slider-val" id="salDisplay">$58,000</span></div>
-            <input type="range" id="salSlider" min="28000" max="150000" step="1000" value="58000" oninput="updateScenario()">
-            <div class="slider-hint" id="salHint">Adjust up or down based on your expected job market</div>
+        <div class="career-grid" id="careerGrid"></div>
+        <div id="customSalaryRow" style="display:none;margin-top:14px">
+          <div class="card" style="padding:1rem 1.25rem">
+            <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:8px">Your estimated starting salary</div>
+            <div class="custom-input-wrap">
+              <span style="font-size:14px;color:var(--gray-600)">$</span>
+              <input class="custom-input" id="customSalInput" type="number" placeholder="e.g. 55000" min="20000" max="200000" oninput="updateCustomSal()"/>
+              <span style="font-size:13px;color:var(--gray-400)">/year</span>
+            </div>
           </div>
+        </div>
+        <div class="nav-row">
+          <button class="btn-secondary" onclick="goStep(1)">← Back</button>
+          <button class="btn-primary" onclick="goStep(3)" style="flex:1">Continue to Degree →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: DEGREE -->
+      <div class="wizard-step" id="wstep3">
+        <div class="wizard-header">
+          <div class="progress-bar" id="pb3"></div>
+          <div class="wizard-title">What degree or major are you considering?</div>
+          <div class="wizard-sub">Pick the degree that best matches your plan. If you're not sure yet, choose the closest option.</div>
+        </div>
+        <div class="degree-grid" id="degreeGrid"></div>
+        <div class="nav-row">
+          <button class="btn-secondary" onclick="goStep(2)">← Back</button>
+          <button class="btn-primary" onclick="goStep(4)" style="flex:1">Continue to Pay Plan →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: PAY PLAN -->
+      <div class="wizard-step" id="wstep4">
+        <div class="wizard-header">
+          <div class="progress-bar" id="pb4"></div>
+          <div class="wizard-title">How are you planning to pay for college?</div>
+          <div class="wizard-sub">Answer what you know. Gradwise will calculate your estimated borrowing gap — no guessing required.</div>
+        </div>
+
+        <div class="card">
+          <div class="field-group">
+            <label class="field-label">Which best describes your situation?</label>
+            <div class="situation-grid" id="situationGrid"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="field-group">
+            <label class="field-label">How much can your family contribute per year?</label>
+            <div class="choice-row" id="familyChoices"></div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Do you already have money saved for college?</label>
+            <div class="choice-row" id="fundChoices"></div>
+          </div>
+          <div class="field-group" style="margin-bottom:0">
+            <label class="field-label">Do you expect scholarships or grants?</label>
+            <div class="choice-row" id="grantChoices"></div>
+          </div>
+        </div>
+
+        <div id="borrowEstimate"></div>
+
+        <!-- Editable assumptions -->
+        <div class="assumptions-box" id="assumptionsBox">
+          <div class="assump-title">Assumptions <span style="font-weight:400;font-size:10px;color:var(--gray-400)">— tap to edit</span></div>
+          <div class="assump-row"><span>Interest rate</span><span class="assump-val" id="aRate">6.5% <button class="edit-btn" onclick="toggleAssumpEdit()">Edit</button></span></div>
+          <div class="assump-row"><span>Repayment term</span><span class="assump-val" id="aTerm">10 years</span></div>
+          <div class="assump-row"><span>Expected starting salary</span><span class="assump-val" id="aSal">—</span></div>
+        </div>
+        <div class="card" id="assumpEditCard" style="display:none">
           <div class="slider-group">
-            <div class="slider-row"><span class="slider-label">Loan interest rate</span><span class="slider-val" id="rateDisplay">6.5%</span></div>
-            <input type="range" id="rateSlider" min="3" max="14" step="0.1" value="6.5" oninput="updateScenario()">
-            <div class="slider-hint">Current federal undergrad rate: ~6.53% · Private loans are typically higher</div>
+            <div class="slider-row"><span class="slider-label">Interest rate</span><span class="slider-val" id="rateDisplay">6.5%</span></div>
+            <input type="range" id="rateSlider" min="3" max="14" step="0.1" value="6.5" oninput="updateAssump()">
+            <div class="slider-hint">Current federal undergrad rate: ~6.53%</div>
           </div>
           <div class="slider-group">
             <div class="slider-row"><span class="slider-label">Repayment term</span><span class="slider-val" id="termDisplay">10 years</span></div>
-            <input type="range" id="termSlider" min="5" max="25" step="1" value="10" oninput="updateScenario()">
-            <div class="slider-hint">Standard federal repayment is 10 years · Income-driven plans can extend to 20–25 years</div>
+            <input type="range" id="termSlider" min="5" max="25" step="1" value="10" oninput="updateAssump()">
+            <div class="slider-hint">Standard federal: 10 yrs · Income-driven: 20–25 yrs</div>
+          </div>
+          <div class="slider-group" style="margin-bottom:0">
+            <div class="slider-row"><span class="slider-label">Expected starting salary</span><span class="slider-val" id="salDisplay">$58,000</span></div>
+            <input type="range" id="salSlider" min="28000" max="150000" step="1000" value="58000" oninput="updateAssump()">
+            <div class="slider-hint" id="salHint">Adjust based on your expected job market</div>
           </div>
         </div>
+
         <div class="nav-row">
-          <button class="btn-secondary" onclick="goWizard(1)">← Back</button>
-          <button class="btn-primary" onclick="goWizard('email')">See My Results →</button>
+          <button class="btn-secondary" onclick="goStep(3)">← Back</button>
+          <button class="btn-primary teal" onclick="goStep(5)" style="flex:1">See My Results →</button>
         </div>
       </div>
 
-      <!-- EMAIL GATE -->
-      <div class="wizard-step" id="wstep-email">
-        <div class="card">
-          <div class="email-gate">
-            <div class="email-gate-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            </div>
-            <h2>Your results are ready</h2>
-            <p>Enter your email to see the full comparison — including monthly payments, value scores, and debt-to-income breakdown for each school. Free, no spam, unsubscribe anytime.</p>
-            <div class="email-input-wrap">
-              <input class="email-input" id="emailInput" type="email" placeholder="your@email.com"/>
-              <button class="email-submit" onclick="submitEmail()">Show My Results</button>
-            </div>
-            <div class="email-privacy">🔒 Your email is never sold or shared. Used only to send you your comparison.</div>
-            <br>
-            <button class="email-skip" onclick="goWizard(3)">Skip for now — show results without saving</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- STEP 3: RESULTS -->
-      <div class="wizard-step" id="wstep3">
-        <div class="wizard-header">
-          <div class="wizard-progress">
-            <div class="wp-step"><div class="wp-num done">✓</div><div class="wp-label done">Schools</div></div>
-            <div class="wp-line done"></div>
-            <div class="wp-step"><div class="wp-num done">✓</div><div class="wp-label done">Major & Career</div></div>
-            <div class="wp-line done"></div>
-            <div class="wp-step"><div class="wp-num done">✓</div><div class="wp-label done">Your Scenario</div></div>
-            <div class="wp-line done"></div>
-            <div class="wp-step"><div class="wp-num done">✓</div><div class="wp-label done">Results</div></div>
-          </div>
-          <div class="wizard-title">Your college cost breakdown</div>
-          <div class="wizard-sub">Ranked by Gradwise Value Score — a personalized composite of affordability, earning power, graduation rate, selectivity, and network strength.</div>
-        </div>
+      <!-- STEP 5: RESULTS -->
+      <div class="wizard-step" id="wstep5">
+        <div class="progress-bar" id="pb5" style="margin-bottom:1.5rem"></div>
+        <div class="results-heading">Here's what each school could cost you after graduation.</div>
+        <div class="results-sub" id="resultsSub">Ranked by Gradwise Value Score — affordability, earning power, graduation rate, selectivity, and network.</div>
 
         <div class="scenario-bar">
-          <div class="sb-item">Salary <strong id="rSal"></strong></div>
-          <div class="sb-item">Rate <strong id="rRate"></strong></div>
-          <div class="sb-item">Term <strong id="rTerm"></strong></div>
-          <div class="sb-item">Career <strong id="rCar"></strong></div>
-          <div class="sb-item">Major <strong id="rMaj"></strong></div>
+          <div class="sb-item">Career: <strong id="rCar">—</strong></div>
+          <div class="sb-item">Salary: <strong id="rSal">—</strong></div>
+          <div class="sb-item">Rate: <strong id="rRate">—</strong></div>
+          <div class="sb-item">Term: <strong id="rTerm">—</strong></div>
         </div>
 
         <div class="dti-legend">
-          <div class="dti-li"><div class="dti-dot" style="background:#1D9E75"></div>Under 10% DTI — comfortable</div>
+          <div class="dti-li"><div class="dti-dot" style="background:#1D9E75"></div>Under 10% — comfortable</div>
           <div class="dti-li"><div class="dti-dot" style="background:#EF9F27"></div>10–20% — manageable</div>
           <div class="dti-li"><div class="dti-dot" style="background:#E24B4A"></div>Over 20% — high risk</div>
-          <div class="dti-li"><div class="dti-dot" style="background:#185FA5"></div>CC transfer path</div>
         </div>
 
         <div id="resultsList"></div>
 
-        <div class="trust-panel">
+        <!-- Email capture — non-blocking -->
+        <div class="email-section">
+          <h3>Want the full comparison saved as a PDF?</h3>
+          <p>We'll email you the full breakdown and side-by-side comparison.</p>
+          <div class="email-input-wrap">
+            <input class="email-input" id="emailInput" type="email" placeholder="your@email.com"/>
+            <button class="email-submit" onclick="submitEmail()">Send My Comparison</button>
+          </div>
+          <button class="email-skip" onclick="document.querySelector('.email-section').style.display='none'">Continue without email</button>
+        </div>
+
+        <div class="trust-panel" style="margin-top:1.5rem">
           <div class="trust-title">Data sources</div>
           <div class="trust-items">
             <div class="trust-item"><div class="trust-dot"></div>Tuition & cost data: U.S. Dept. of Education College Scorecard (updated annually)</div>
@@ -551,9 +597,14 @@ input[type=range]::-webkit-slider-thumb { appearance: none; width: 22px; height:
           </div>
         </div>
 
-        <div class="legal-disclaimer">
-          <h4>Important Legal Disclaimer</h4>
-          <p>Gradwise is an independent college affordability estimation tool provided for general research and informational purposes only. It is <strong>not financial advice</strong> and is not provided by or affiliated with a licensed financial advisor, financial planner, certified financial counselor, or any government agency. All cost estimates, salary projections, and loan calculations are approximations based on publicly available federal data and may not reflect your actual costs or outcomes. Individual results will vary significantly based on financial aid awards, personal circumstances, employer, location, and many other factors. Always consult your school's official financial aid office and a qualified, licensed financial professional before making any enrollment or borrowing decisions. Gradwise makes no guarantees regarding the accuracy, completeness, or timeliness of any data presented.</p>
+        <div class="legal-collapsible">
+          <button class="legal-toggle" onclick="toggleLegal()">
+            <span>Important Legal Disclaimer</span>
+            <span id="legalArrow">▼</span>
+          </button>
+          <div class="legal-body" id="legalBody">
+            Gradwise is an independent college affordability estimation tool provided for general research and informational purposes only. It is <strong>not financial advice</strong> and is not provided by or affiliated with a licensed financial advisor, financial planner, certified financial counselor, or any government agency. All cost estimates, salary projections, and loan calculations are approximations based on publicly available federal data and may not reflect your actual costs or outcomes. Individual results will vary significantly based on financial aid awards, personal circumstances, employer, location, and many other factors. Always consult your school's official financial aid office and a qualified, licensed financial professional before making any enrollment or borrowing decisions.
+          </div>
         </div>
 
         <button class="restart-btn" onclick="restart()">← Start a new comparison</button>
@@ -563,13 +614,15 @@ input[type=range]::-webkit-slider-thumb { appearance: none; width: 22px; height:
 
     <!-- ═══ HOW IT WORKS ═══ -->
     <div class="page-section" id="section-howit">
-      <div class="info-hero"><h1>How <em>Gradwise</em> Works</h1><p>Four steps from confusion to clarity on your college financial decision.</p></div>
+      <div class="info-hero"><h1>How <em>Gradwise</em> Works</h1><p>Six steps from confusion to clarity on your college financial decision.</p></div>
       <div class="card">
         <div style="display:flex;flex-direction:column;gap:1.5rem">
-          <div style="display:flex;gap:16px;align-items:flex-start"><div style="width:36px;height:36px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;flex-shrink:0;font-size:14px">1</div><div><div style="font-weight:600;margin-bottom:4px">Search your schools</div><div style="font-size:13px;color:var(--gray-600);line-height:1.7">Type any college name. We pull live data directly from the U.S. Department of Education College Scorecard — tuition, room & board, average net price, median graduate debt, graduation rates, and admissions data for 6,000+ accredited schools.</div></div></div>
-          <div style="display:flex;gap:16px;align-items:flex-start"><div style="width:36px;height:36px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;flex-shrink:0;font-size:14px">2</div><div><div style="font-weight:600;margin-bottom:4px">Select your major and career path</div><div style="font-size:13px;color:var(--gray-600);line-height:1.7">Choose from 10 major categories and 60+ career paths. Each path is mapped to real Bureau of Labor Statistics salary data, so your debt-to-income calculation reflects what graduates in your field actually earn.</div></div></div>
-          <div style="display:flex;gap:16px;align-items:flex-start"><div style="width:36px;height:36px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;flex-shrink:0;font-size:14px">3</div><div><div style="font-weight:600;margin-bottom:4px">Model your scenario</div><div style="font-size:13px;color:var(--gray-600);line-height:1.7">Adjust your expected starting salary, loan interest rate, and repayment term to stress-test different outcomes. See how your monthly payment and value score change under conservative, realistic, and optimistic assumptions.</div></div></div>
-          <div style="display:flex;gap:16px;align-items:flex-start"><div style="width:36px;height:36px;background:var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;flex-shrink:0;font-size:14px">4</div><div><div style="font-weight:600;margin-bottom:4px">See your personalized results</div><div style="font-size:13px;color:var(--gray-600);line-height:1.7">Schools are ranked by the Gradwise Value Score — a composite of affordability, earning power, graduation rate, selectivity, and network strength. The school that makes the best financial sense for your specific situation rises to the top.</div></div></div>
+          <div style="display:flex;gap:16px;align-items:flex-start"><div style="width:36px;height:36px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;flex-shrink:0;font-size:14px">1</div><div><div style="font-weight:600;margin-bottom:4px">Search your schools</div><div style="font-size:13px;color:var(--gray-600);line-height:1.7">Type any college name. We pull live data from the U.S. Dept. of Education — tuition, room & board, grad rates, and admissions for 6,000+ schools.</div></div></div>
+          <div style="display:flex;gap:16px;align-items:flex-start"><div style="width:36px;height:36px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;flex-shrink:0;font-size:14px">2</div><div><div style="font-weight:600;margin-bottom:4px">Choose your industry</div><div style="font-size:13px;color:var(--gray-600);line-height:1.7">Pick a broad field first. This narrows down realistic career and degree options tailored to your interests.</div></div></div>
+          <div style="display:flex;gap:16px;align-items:flex-start"><div style="width:36px;height:36px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;flex-shrink:0;font-size:14px">3</div><div><div style="font-weight:600;margin-bottom:4px">Select your career path</div><div style="font-size:13px;color:var(--gray-600);line-height:1.7">Each career is mapped to real BLS salary data, so your debt-to-income calculation reflects what people in your field actually earn.</div></div></div>
+          <div style="display:flex;gap:16px;align-items:flex-start"><div style="width:36px;height:36px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;flex-shrink:0;font-size:14px">4</div><div><div style="font-weight:600;margin-bottom:4px">Pick your degree</div><div style="font-size:13px;color:var(--gray-600);line-height:1.7">Choose the major that best matches your career goals. Options are filtered by your industry and career choice.</div></div></div>
+          <div style="display:flex;gap:16px;align-items:flex-start"><div style="width:36px;height:36px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;flex-shrink:0;font-size:14px">5</div><div><div style="font-weight:600;margin-bottom:4px">Tell us what you know about paying</div><div style="font-size:13px;color:var(--gray-600);line-height:1.7">Answer what you actually know — family help, savings, expected grants. Gradwise calculates the borrowing gap, so you don't have to guess.</div></div></div>
+          <div style="display:flex;gap:16px;align-items:flex-start"><div style="width:36px;height:36px;background:var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;flex-shrink:0;font-size:14px">6</div><div><div style="font-weight:600;margin-bottom:4px">See your personalized results</div><div style="font-size:13px;color:var(--gray-600);line-height:1.7">Schools ranked by the Gradwise Value Score — affordability, earning power, grad rate, selectivity, and network strength.</div></div></div>
         </div>
       </div>
     </div>
@@ -579,11 +632,11 @@ input[type=range]::-webkit-slider-thumb { appearance: none; width: 22px; height:
       <div class="info-hero"><h1>Value Score <em>Methodology</em></h1><p>How we calculate the Gradwise Value Score — transparent, personalized, data-driven.</p></div>
       <div class="card">
         <div style="display:flex;flex-direction:column;gap:1rem">
-          <div style="padding:1rem;background:var(--gray-50);border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-weight:600">Affordability</span><span style="font-weight:700;color:var(--teal)">30 pts</span></div><div style="font-size:13px;color:var(--gray-600);line-height:1.6">Your debt-to-income ratio given your specific scenario. DTI under 10% = near max score. Over 20% = near zero. The most heavily weighted factor because it directly determines your post-graduation financial freedom.</div></div>
-          <div style="padding:1rem;background:var(--gray-50);border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-weight:600">Earning Power</span><span style="font-weight:700;color:var(--blue)">25 pts</span></div><div style="font-size:13px;color:var(--gray-600);line-height:1.6">Each school's actual graduate early-career salary outcomes from College Scorecard, compared to your expected salary from your chosen career path. Schools whose graduates consistently out-earn your benchmark score higher.</div></div>
+          <div style="padding:1rem;background:var(--gray-50);border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-weight:600">Affordability</span><span style="font-weight:700;color:var(--teal)">30 pts</span></div><div style="font-size:13px;color:var(--gray-600);line-height:1.6">Your debt-to-income ratio given your specific scenario. DTI under 10% = near max. Over 20% = near zero. Most heavily weighted because it directly determines post-graduation financial freedom.</div></div>
+          <div style="padding:1rem;background:var(--gray-50);border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-weight:600">Earning Power</span><span style="font-weight:700;color:var(--blue)">25 pts</span></div><div style="font-size:13px;color:var(--gray-600);line-height:1.6">Each school's actual graduate early-career salary outcomes from College Scorecard, compared to your expected salary. Schools whose graduates consistently out-earn your benchmark score higher.</div></div>
           <div style="padding:1rem;background:var(--gray-50);border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-weight:600">Graduation Rate</span><span style="font-weight:700;color:var(--purple)">20 pts</span></div><div style="font-size:13px;color:var(--gray-600);line-height:1.6">A degree you don't finish is debt without the return. 150% completion rate from College Scorecard. 95% grad rate = near max. 55% = much lower.</div></div>
-          <div style="padding:1rem;background:var(--gray-50);border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-weight:600">Selectivity</span><span style="font-weight:700;color:var(--amber)">15 pts</span></div><div style="font-size:13px;color:var(--gray-600);line-height:1.6">Lower acceptance rates signal stronger brand value, alumni networks, and employer recognition. Reflects real-world value of institutional prestige in hiring.</div></div>
-          <div style="padding:1rem;background:var(--gray-50);border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-weight:600">Network Strength</span><span style="font-weight:700;color:#D85A30">10 pts</span></div><div style="font-size:13px;color:var(--gray-600);line-height:1.6">A composite score reflecting alumni density in professional networks, employer recruitment presence, and career services strength based on Payscale and alumni outcome data.</div></div>
+          <div style="padding:1rem;background:var(--gray-50);border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-weight:600">Selectivity</span><span style="font-weight:700;color:var(--amber)">15 pts</span></div><div style="font-size:13px;color:var(--gray-600);line-height:1.6">Lower acceptance rates signal stronger brand value, alumni networks, and employer recognition.</div></div>
+          <div style="padding:1rem;background:var(--gray-50);border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-weight:600">Network Strength</span><span style="font-weight:700;color:#D85A30">10 pts</span></div><div style="font-size:13px;color:var(--gray-600);line-height:1.6">A composite score reflecting alumni density in professional networks, employer recruitment presence, and career services strength.</div></div>
         </div>
       </div>
     </div>
@@ -596,7 +649,7 @@ input[type=range]::-webkit-slider-thumb { appearance: none; width: 22px; height:
         <p style="font-size:14px;color:var(--gray-600);line-height:1.8;margin-bottom:1rem">This tool exists to change that. By pulling live data directly from the U.S. Department of Education and connecting it to real salary outcomes by career path, Gradwise gives you the complete financial picture before you commit to one of the biggest decisions of your life.</p>
         <p style="font-size:14px;color:var(--gray-600);line-height:1.8;margin-bottom:1.5rem">Gradwise is free, requires no sign-up, and never stores or sells your data.</p>
         <div style="padding:1rem;background:var(--amber-light);border-radius:10px;font-size:12px;color:#633806;line-height:1.7">
-          <strong>Disclaimer:</strong> Gradwise is an independent college affordability estimation tool for informational purposes only. It is not financial advice and is not affiliated with any university, lender, or government agency. Always verify information with your school's financial aid office and consult a licensed financial professional before making enrollment or borrowing decisions.
+          <strong>Disclaimer:</strong> Gradwise is an independent college affordability estimation tool for informational purposes only. Not financial advice. Not affiliated with any university, lender, or government agency. Always verify with your school's financial aid office and consult a licensed financial professional before making enrollment or borrowing decisions.
         </div>
         <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--gray-100);font-size:13px;color:var(--gray-400)">
           Questions: <a href="mailto:hello@gradwise.io" style="color:var(--teal)">hello@gradwise.io</a>
@@ -604,107 +657,145 @@ input[type=range]::-webkit-slider-thumb { appearance: none; width: 22px; height:
       </div>
     </div>
 
-  </div>
-</div>
+  </div><!-- end page -->
+</div><!-- end main-wrap -->
 
 <script>
 // ═══ CONFIG ═══
-const API_KEY = 'BdayGUfXmUJB2SbcsNofr8pmbkJOMXJpABqYgFIp';
+const API_KEY = 'YOUR_API_KEY_HERE';
 const SCORECARD_BASE = 'https://api.data.gov/ed/collegescorecard/v1/schools.json';
 const SCORECARD_FIELDS = ['school.name','school.city','school.state','latest.cost.tuition.in_state','latest.cost.tuition.out_of_state','latest.cost.roomboard.oncampus','latest.aid.median_debt.completers.overall','latest.cost.avg_net_price.overall','latest.admissions.admission_rate.overall','latest.completion.completion_rate_4yr_150nt','latest.earnings.10_yrs_after_entry.median','id'].join(',');
 
-// ═══ MAJORS & CAREERS ═══
-const MAJORS = {
-  business:{label:'Business & Management',careers:[
-    {id:'finance',title:'Financial Analyst',salary:65000},
-    {id:'consulting',title:'Management Consultant',salary:72000},
-    {id:'marketing',title:'Marketing Manager',salary:55000},
-    {id:'hr',title:'Human Resources',salary:52000},
-    {id:'operations',title:'Operations Manager',salary:60000},
-    {id:'sales',title:'Sales Representative',salary:55000},
-    {id:'accounting',title:'Accountant / CPA',salary:62000},
-    {id:'entrepreneur',title:'Entrepreneur',salary:42000},
-    {id:'bizanalyst',title:'Business Analyst',salary:68000},
-    {id:'realestate',title:'Real Estate',salary:50000},
-  ]},
-  cs:{label:'Computer Science & IT',careers:[
-    {id:'swe',title:'Software Engineer',salary:110000},
-    {id:'datascience',title:'Data Scientist',salary:100000},
-    {id:'cyber',title:'Cybersecurity Analyst',salary:95000},
-    {id:'ux',title:'UX / UI Designer',salary:78000},
-    {id:'pm',title:'Product Manager',salary:98000},
-    {id:'cloud',title:'Cloud Engineer',salary:108000},
-    {id:'devops',title:'DevOps Engineer',salary:105000},
-    {id:'aiml',title:'AI / ML Engineer',salary:125000},
-    {id:'itsupport',title:'IT Support / SysAdmin',salary:58000},
-  ]},
-  engineering:{label:'Engineering',careers:[
-    {id:'mech',title:'Mechanical Engineer',salary:82000},
-    {id:'civil',title:'Civil Engineer',salary:76000},
-    {id:'elec',title:'Electrical Engineer',salary:90000},
-    {id:'chem',title:'Chemical Engineer',salary:95000},
-    {id:'aero',title:'Aerospace Engineer',salary:98000},
-    {id:'enviro',title:'Environmental Engineer',salary:72000},
-    {id:'bio',title:'Biomedical Engineer',salary:75000},
-    {id:'industrial',title:'Industrial Engineer',salary:80000},
-  ]},
-  health:{label:'Health & Nursing',careers:[
-    {id:'rn',title:'Registered Nurse (RN)',salary:77000},
-    {id:'pt',title:'Physical Therapist',salary:82000},
-    {id:'pa',title:'Physician Assistant',salary:115000},
-    {id:'healthadmin',title:'Healthcare Administrator',salary:62000},
-    {id:'medlab',title:'Medical Lab Scientist',salary:58000},
-    {id:'premed',title:'Pre-Med → Medical School',salary:60000},
-    {id:'pharmacy',title:'Pharmacist',salary:128000},
-    {id:'ot',title:'Occupational Therapist',salary:80000},
-  ]},
-  social:{label:'Social Sciences',careers:[
-    {id:'socialwork',title:'Social Worker',salary:50000},
-    {id:'psych',title:'Psychologist / Counselor',salary:52000},
-    {id:'policy',title:'Policy Analyst',salary:62000},
-    {id:'marketresearch',title:'Market Research Analyst',salary:65000},
-    {id:'nonprofit',title:'Non-Profit Manager',salary:48000},
-    {id:'econ',title:'Economist',salary:78000},
-  ]},
-  comms:{label:'Communications & Media',careers:[
-    {id:'pr',title:'Public Relations',salary:52000},
-    {id:'journalism',title:'Journalist / Reporter',salary:46000},
-    {id:'digitalmarketing',title:'Digital Marketing',salary:55000},
-    {id:'advertising',title:'Advertising / Brand',salary:52000},
-    {id:'content',title:'Content Strategist',salary:58000},
-    {id:'socialmedia',title:'Social Media Manager',salary:50000},
-  ]},
-  education:{label:'Education',careers:[
-    {id:'teacher',title:'K-12 Teacher',salary:46000},
-    {id:'schoolcounselor',title:'School Counselor',salary:58000},
-    {id:'instructional',title:'Instructional Designer',salary:62000},
-    {id:'collegeadmin',title:'College Administrator',salary:58000},
-    {id:'sped',title:'Special Education Teacher',salary:50000},
-    {id:'principal',title:'School Principal',salary:72000},
-  ]},
-  law:{label:'Law & Criminal Justice',careers:[
-    {id:'prelaw',title:'Pre-Law → Law School',salary:55000},
-    {id:'paralegal',title:'Paralegal',salary:52000},
-    {id:'lawenforce',title:'Law Enforcement Officer',salary:58000},
-    {id:'compliance',title:'Compliance Officer',salary:68000},
-    {id:'detective',title:'Detective / Investigator',salary:62000},
-  ]},
-  science:{label:'Natural Sciences',careers:[
-    {id:'research',title:'Research Scientist',salary:72000},
-    {id:'envirosci',title:'Environmental Scientist',salary:60000},
-    {id:'pharmsales',title:'Pharmaceutical Sales',salary:68000},
-    {id:'biotech',title:'Biotech Researcher',salary:75000},
-    {id:'geologist',title:'Geologist',salary:68000},
-  ]},
-  arts:{label:'Arts, Design & Humanities',careers:[
-    {id:'graphic',title:'Graphic Designer',salary:52000},
-    {id:'architect',title:'Architect',salary:68000},
-    {id:'artdir',title:'Art Director',salary:62000},
-    {id:'writer',title:'Writer / Editor',salary:48000},
-    {id:'film',title:'Film / Media Production',salary:50000},
-    {id:'fashiondesign',title:'Fashion Designer',salary:48000},
-  ]},
-};
+// ═══ INDUSTRIES & CAREERS ═══
+const INDUSTRIES = [
+  {id:'business', label:'Business & Finance', icon:'💼', careers:[
+    {id:'finance',title:'Financial Analyst',salary:65000,icon:'📈'},
+    {id:'accounting',title:'Accountant / CPA',salary:62000,icon:'🧾'},
+    {id:'marketing',title:'Marketing Manager',salary:63000,icon:'📣'},
+    {id:'sales',title:'Sales Representative',salary:55000,icon:'🤝'},
+    {id:'operations',title:'Operations Manager',salary:66000,icon:'⚙️'},
+    {id:'hr',title:'Human Resources',salary:52000,icon:'👥'},
+    {id:'entrepreneur',title:'Entrepreneur / Business Owner',salary:null,icon:'🚀'},
+  ], degrees:['Finance','Accounting','Business Administration','Economics','Marketing','Management','Undecided – Business']},
+  {id:'technology', label:'Technology', icon:'💻', careers:[
+    {id:'swe',title:'Software Engineer',salary:110000,icon:'🧑‍💻'},
+    {id:'datascience',title:'Data Scientist',salary:100000,icon:'📊'},
+    {id:'cyber',title:'Cybersecurity Analyst',salary:95000,icon:'🔐'},
+    {id:'ux',title:'UX / UI Designer',salary:78000,icon:'🎨'},
+    {id:'pm',title:'Product Manager',salary:98000,icon:'🗺️'},
+    {id:'cloud',title:'Cloud Engineer',salary:108000,icon:'☁️'},
+    {id:'aiml',title:'AI / ML Engineer',salary:125000,icon:'🤖'},
+    {id:'itsupport',title:'IT Support / SysAdmin',salary:58000,icon:'🛠️'},
+  ], degrees:['Computer Science','Information Technology','Data Science','Cybersecurity','Software Engineering','UX Design','Undecided – Tech']},
+  {id:'healthcare', label:'Healthcare', icon:'🏥', careers:[
+    {id:'rn',title:'Registered Nurse (RN)',salary:77000,icon:'👩‍⚕️'},
+    {id:'pt',title:'Physical Therapist',salary:82000,icon:'🏃'},
+    {id:'pa',title:'Physician Assistant',salary:115000,icon:'🩺'},
+    {id:'healthadmin',title:'Healthcare Administrator',salary:62000,icon:'🏥'},
+    {id:'premed',title:'Pre-Med → Medical School',salary:60000,icon:'⚕️'},
+    {id:'pharmacy',title:'Pharmacist',salary:128000,icon:'💊'},
+    {id:'ot',title:'Occupational Therapist',salary:80000,icon:'🙌'},
+  ], degrees:['Nursing','Health Administration','Pre-Medicine','Pharmacy','Kinesiology / Exercise Science','Public Health','Undecided – Health']},
+  {id:'engineering', label:'Engineering', icon:'⚙️', careers:[
+    {id:'mech',title:'Mechanical Engineer',salary:82000,icon:'🔩'},
+    {id:'civil',title:'Civil Engineer',salary:76000,icon:'🏗️'},
+    {id:'elec',title:'Electrical Engineer',salary:90000,icon:'⚡'},
+    {id:'chem',title:'Chemical Engineer',salary:95000,icon:'🧪'},
+    {id:'aero',title:'Aerospace Engineer',salary:98000,icon:'✈️'},
+    {id:'bio',title:'Biomedical Engineer',salary:75000,icon:'🧬'},
+    {id:'industrial',title:'Industrial Engineer',salary:80000,icon:'🏭'},
+  ], degrees:['Mechanical Engineering','Civil Engineering','Electrical Engineering','Chemical Engineering','Aerospace Engineering','Biomedical Engineering','Industrial Engineering']},
+  {id:'law', label:'Law & Criminal Justice', icon:'⚖️', careers:[
+    {id:'prelaw',title:'Pre-Law → Law School',salary:55000,icon:'👨‍⚖️'},
+    {id:'paralegal',title:'Paralegal',salary:52000,icon:'📋'},
+    {id:'lawenforce',title:'Law Enforcement Officer',salary:58000,icon:'🚔'},
+    {id:'compliance',title:'Compliance Officer',salary:68000,icon:'✅'},
+    {id:'detective',title:'Detective / Investigator',salary:62000,icon:'🔍'},
+  ], degrees:['Pre-Law','Criminal Justice','Criminology','Political Science','Paralegal Studies','Forensic Science']},
+  {id:'education', label:'Education', icon:'🎓', careers:[
+    {id:'teacher',title:'K-12 Teacher',salary:46000,icon:'📚'},
+    {id:'sped',title:'Special Education Teacher',salary:50000,icon:'♿'},
+    {id:'counselor',title:'School Counselor',salary:58000,icon:'💬'},
+    {id:'instructional',title:'Instructional Designer',salary:62000,icon:'🖥️'},
+    {id:'principal',title:'School Principal',salary:72000,icon:'🏫'},
+  ], degrees:['Elementary Education','Secondary Education','Special Education','Educational Psychology','Curriculum & Instruction','School Counseling']},
+  {id:'arts', label:'Arts, Design & Media', icon:'🎨', careers:[
+    {id:'graphic',title:'Graphic Designer',salary:52000,icon:'🖌️'},
+    {id:'architect',title:'Architect',salary:68000,icon:'🏛️'},
+    {id:'artdir',title:'Art Director',salary:62000,icon:'🎬'},
+    {id:'writer',title:'Writer / Editor',salary:48000,icon:'✍️'},
+    {id:'film',title:'Film / Media Production',salary:50000,icon:'🎥'},
+    {id:'ux',title:'UX / UI Designer',salary:78000,icon:'🎨'},
+  ], degrees:['Graphic Design','Architecture','Fine Arts','Journalism','Film & Media Production','Communications']},
+  {id:'social', label:'Social Sciences', icon:'🌍', careers:[
+    {id:'socialwork',title:'Social Worker',salary:50000,icon:'🤲'},
+    {id:'psych',title:'Psychologist / Counselor',salary:52000,icon:'🧠'},
+    {id:'policy',title:'Policy Analyst',salary:62000,icon:'📜'},
+    {id:'marketresearch',title:'Market Research Analyst',salary:65000,icon:'📊'},
+    {id:'nonprofit',title:'Non-Profit Manager',salary:48000,icon:'💛'},
+    {id:'econ',title:'Economist',salary:78000,icon:'📉'},
+  ], degrees:['Psychology','Sociology','Political Science','Economics','Social Work','International Relations']},
+  {id:'science', label:'Natural Sciences', icon:'🔬', careers:[
+    {id:'research',title:'Research Scientist',salary:72000,icon:'🔭'},
+    {id:'envirosci',title:'Environmental Scientist',salary:60000,icon:'🌿'},
+    {id:'biotech',title:'Biotech Researcher',salary:75000,icon:'🧫'},
+    {id:'geologist',title:'Geologist',salary:68000,icon:'⛰️'},
+    {id:'pharmsales',title:'Pharmaceutical Sales',salary:68000,icon:'💊'},
+  ], degrees:['Biology','Chemistry','Environmental Science','Geology','Biochemistry','Physics']},
+  {id:'marketing', label:'Marketing & Sales', icon:'📣', careers:[
+    {id:'digitalmarketing',title:'Digital Marketing Specialist',salary:55000,icon:'📱'},
+    {id:'brand',title:'Brand Manager',salary:65000,icon:'⭐'},
+    {id:'pr',title:'Public Relations',salary:52000,icon:'📢'},
+    {id:'content',title:'Content Strategist',salary:58000,icon:'📝'},
+    {id:'socialmedia',title:'Social Media Manager',salary:50000,icon:'📲'},
+    {id:'ecommerce',title:'E-Commerce Manager',salary:62000,icon:'🛒'},
+  ], degrees:['Marketing','Advertising','Public Relations','Communications','Digital Marketing','Business Administration']},
+  {id:'trades', label:'Trades & Skilled Work', icon:'🔧', careers:[
+    {id:'electrician',title:'Electrician',salary:60000,icon:'⚡'},
+    {id:'plumber',title:'Plumber',salary:58000,icon:'🔧'},
+    {id:'contractor',title:'General Contractor',salary:72000,icon:'🏗️'},
+    {id:'hvac',title:'HVAC Technician',salary:55000,icon:'❄️'},
+    {id:'welder',title:'Welder',salary:48000,icon:'🔥'},
+  ], degrees:["Associate's Degree","Technical Certificate","Apprenticeship Program","Construction Management","Vocational / Trade Program"]},
+  {id:'notsure', label:'Not Sure Yet', icon:'🤷', careers:[
+    {id:'notsure_career',title:"I'm not sure yet",salary:55000,icon:'🤷'},
+  ], degrees:['Undecided','Liberal Arts','General Studies','Exploring Options']},
+];
+
+// Legacy MAJORS for results rendering compatibility
+const MAJORS = {};
+INDUSTRIES.forEach(ind => {
+  ind.careers.forEach(c => {
+    if(!MAJORS[ind.id]) MAJORS[ind.id] = {label: ind.label, careers: []};
+    MAJORS[ind.id].careers.push(c);
+  });
+});
+
+// ═══ PAY PLAN DATA ═══
+const SITUATIONS = ['Borrow 100%','Family will help','Using a college fund','Scholarships / grants expected','Mix of savings and loans','Not sure yet'];
+const FAMILY_OPTIONS = [
+  {label:'$0', val:0},
+  {label:'Under $5k', val:2500},
+  {label:'$5k–$10k', val:7500},
+  {label:'$10k–$20k', val:15000},
+  {label:'$20k+', val:20000},
+  {label:'Custom', val:'custom'},
+];
+const FUND_OPTIONS = [
+  {label:'$0', val:0},
+  {label:'Under $10k', val:5000},
+  {label:'$10k–$25k', val:17500},
+  {label:'$25k–$50k', val:37500},
+  {label:'$50k+', val:50000},
+  {label:'Custom', val:'custom'},
+];
+const GRANT_OPTIONS = [
+  {label:'None', val:0},
+  {label:'Some: $1k–$5k/yr', val:3000},
+  {label:'Moderate: $5k–$15k/yr', val:10000},
+  {label:'Significant: $15k+/yr', val:15000},
+  {label:'Use average estimates', val:'avg'},
+];
 
 // ═══ FALLBACK DATA ═══
 const FALLBACK = [
@@ -752,17 +843,13 @@ const FALLBACK = [
   {name:"Clemson University",city:"Clemson",state:"SC",tuitionIn:16014,tuitionOut:38550,rb:11200,anp:18200,medDebt:20500,gradRate:.83,admRate:.51,earlyCareerSal:60000,midCareerSal:96000,networkScore:72},
   {name:"University of Pittsburgh",city:"Pittsburgh",state:"PA",tuitionIn:20482,tuitionOut:36064,rb:12540,anp:22000,medDebt:23000,gradRate:.83,admRate:.65,earlyCareerSal:58000,midCareerSal:94000,networkScore:68},
   {name:"Temple University",city:"Philadelphia",state:"PA",tuitionIn:18048,tuitionOut:29848,rb:13444,anp:20500,medDebt:24000,gradRate:.72,admRate:.67,earlyCareerSal:54000,midCareerSal:86000,networkScore:58},
-  {name:"SUNY Buffalo",city:"Buffalo",state:"NY",tuitionIn:10932,tuitionOut:27012,rb:14400,anp:15800,medDebt:19000,gradRate:.77,admRate:.74,earlyCareerSal:54000,midCareerSal:86000,networkScore:58},
-  {name:"Arizona State University",city:"Tempe",state:"AZ",tuitionIn:12719,tuitionOut:29428,rb:12582,anp:14700,medDebt:19000,gradRate:.67,admRate:.88,earlyCareerSal:55000,midCareerSal:88000,networkScore:60},
-  {name:"University of Colorado Boulder",city:"Boulder",state:"CO",tuitionIn:14188,tuitionOut:38292,rb:16600,anp:18500,medDebt:21000,gradRate:.73,admRate:.80,earlyCareerSal:57000,midCareerSal:92000,networkScore:64},
-  {name:"Louisiana State University",city:"Baton Rouge",state:"LA",tuitionIn:11950,tuitionOut:29550,rb:11600,anp:15500,medDebt:20000,gradRate:.68,admRate:.76,earlyCareerSal:54000,midCareerSal:86000,networkScore:60},
-  {name:"University of Alabama",city:"Tuscaloosa",state:"AL",tuitionIn:11100,tuitionOut:31460,rb:10700,anp:16000,medDebt:21000,gradRate:.70,admRate:.80,earlyCareerSal:52000,midCareerSal:84000,networkScore:58},
   {name:"Wake Forest University",city:"Winston-Salem",state:"NC",tuitionIn:64758,tuitionOut:64758,rb:17700,anp:31000,medDebt:20000,gradRate:.89,admRate:.30,earlyCareerSal:67000,midCareerSal:112000,networkScore:86},
-  {name:"Tulane University",city:"New Orleans",state:"LA",tuitionIn:63474,tuitionOut:63474,rb:17200,anp:33000,medDebt:23000,gradRate:.86,admRate:.13,earlyCareerSal:64000,midCareerSal:108000,networkScore:86},
 ];
 
 // ═══ STATE ═══
-let schools=[], selCareer=null, selMajor='business', searchTimer=null;
+let schools=[], selIndustry=null, selCareer=null, selDegree=null, selSituation=null;
+let selFamily=0, selFund=0, selGrant=0, customSalary=null;
+let searchTimer=null;
 const fmt=n=>(!n&&n!==0)?'N/A':'$'+Math.round(n).toLocaleString();
 const fmtP=n=>(Math.round(n*10)/10)+'%';
 const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));
@@ -777,45 +864,232 @@ function showSection(id, el) {
   document.getElementById('topbarTitle').textContent=titles[id]||'Gradwise';
 }
 
-function setView(v, el) {
-  document.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));
-  if(el) el.classList.add('active');
+// ═══ PROGRESS BAR BUILDER ═══
+function buildProgressBar(currentStep) {
+  const labels=['Schools','Industry','Career','Degree','Pay Plan','Results'];
+  return labels.map((label,i) => {
+    const numClass = i < currentStep ? 'done' : i===currentStep ? 'active' : '';
+    const lblClass = i < currentStep ? 'done' : i===currentStep ? 'active' : '';
+    const numContent = i < currentStep ? '✓' : i+1;
+    const line = i < labels.length-1
+      ? `<div class="pb-line ${i < currentStep ? 'done' : ''}"></div>`
+      : '';
+    return `<div class="pb-step"><div class="pb-num ${numClass}">${numContent}</div><div class="pb-label ${lblClass}">${label}</div></div>${line}`;
+  }).join('');
 }
 
-// ═══ WIZARD NAV ═══
-function goWizard(step) {
+// ═══ STEP NAVIGATION ═══
+function goStep(step) {
   if(step===1 && schools.length===0 && !document.getElementById('ccMode').checked) {
     alert('Please add at least one school to continue.');return;
   }
-  if(step===3) renderResults();
+  if(step===2) { renderCareerGrid(); }
+  if(step===3) { renderDegreeGrid(); }
+  if(step===4) { renderPayPlan(); }
+  if(step===5) { renderResults(); }
+
+  // Update all dynamic progress bars
+  ['pb1','pb2','pb3','pb4','pb5'].forEach((id,i) => {
+    const el=document.getElementById(id);
+    if(el) el.innerHTML=buildProgressBar(i+1);
+  });
+
   document.querySelectorAll('.wizard-step').forEach(s=>s.classList.remove('active'));
-  if(step==='landing') {
-    document.getElementById('wstep-landing').classList.add('active');
-  } else if(step==='email') {
-    document.getElementById('wstep-email').classList.add('active');
-  } else {
-    document.getElementById('wstep'+step).classList.add('active');
-  }
+  const stepEl=document.getElementById('wstep'+step);
+  if(stepEl) stepEl.classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function submitEmail() {
-  const email = document.getElementById('emailInput').value.trim();
-  if(email && email.includes('@')) {
-    // In production: send to your email list (Mailchimp etc)
-    console.log('Email captured:', email);
-    goWizard(3);
-  } else {
-    alert('Please enter a valid email address.');
+// ═══ INDUSTRY GRID ═══
+function renderIndustryGrid() {
+  document.getElementById('industryGrid').innerHTML = INDUSTRIES.map(ind => `
+    <div class="industry-tile ${selIndustry===ind.id?'selected':''}" onclick="selectIndustry('${ind.id}')">
+      <div class="industry-icon">${ind.icon}</div>
+      <div class="industry-label">${ind.label}</div>
+    </div>
+  `).join('');
+}
+
+function selectIndustry(id) {
+  selIndustry=id; selCareer=null; selDegree=null;
+  renderIndustryGrid();
+}
+
+// ═══ CAREER GRID ═══
+function renderCareerGrid() {
+  const industry = INDUSTRIES.find(i=>i.id===selIndustry);
+  const careers = industry ? industry.careers : [];
+  document.getElementById('careerGrid').innerHTML = [
+    ...careers.map(c => `
+      <div class="career-card ${selCareer&&selCareer.id===c.id?'selected':''}" onclick="selectCareer('${c.id}')">
+        <div class="career-card-icon">${c.icon||'💼'}</div>
+        <div class="career-card-body">
+          <div class="cc-title">${c.title}</div>
+          <div class="cc-salary">${c.salary?'~'+fmt(c.salary)+' starting':' Varies widely'}</div>
+          <div class="cc-source">BLS estimate</div>
+        </div>
+      </div>
+    `),
+    `<div class="career-card custom-salary-card ${selCareer&&selCareer.id==='custom'?'selected':''}" onclick="selectCareer('custom')">
+      <div class="career-card-icon">✏️</div>
+      <div class="career-card-body">
+        <div class="cc-title">Use my own salary estimate</div>
+        <div class="cc-salary">Enter your expected starting pay</div>
+      </div>
+    </div>`
+  ].join('');
+
+  document.getElementById('customSalaryRow').style.display = (selCareer&&selCareer.id==='custom') ? 'block' : 'none';
+}
+
+function selectCareer(id) {
+  if(id==='custom') {
+    selCareer={id:'custom',title:'Custom salary',salary:null};
+    document.getElementById('customSalaryRow').style.display='block';
+    renderCareerGrid();
+    return;
+  }
+  const industry=INDUSTRIES.find(i=>i.id===selIndustry);
+  selCareer=industry?.careers.find(c=>c.id===id)||null;
+  if(selCareer?.salary) {
+    document.getElementById('salSlider').value=selCareer.salary;
+    document.getElementById('salHint').textContent='BLS median for '+selCareer.title+' — adjust if needed';
+    updateAssump();
+  }
+  document.getElementById('customSalaryRow').style.display='none';
+  renderCareerGrid();
+}
+
+function updateCustomSal() {
+  customSalary = parseInt(document.getElementById('customSalInput').value)||null;
+  if(customSalary) {
+    document.getElementById('salSlider').value=Math.min(150000,Math.max(28000,customSalary));
+    updateAssump();
   }
 }
 
-function restart() {
-  schools=[]; selCareer=null; selMajor='business';
-  document.getElementById('schoolSearch').value='';
-  document.getElementById('ccMode').checked=false;
-  renderSchoolList(); renderMajorTabs(); renderCareerGrid(); updateScenario();
-  goWizard(0);
+// ═══ DEGREE GRID ═══
+function renderDegreeGrid() {
+  const industry=INDUSTRIES.find(i=>i.id===selIndustry);
+  const degrees=industry?.degrees||['Liberal Arts','General Studies','Undecided'];
+  document.getElementById('degreeGrid').innerHTML=degrees.map(d=>`
+    <div class="degree-item ${selDegree===d?'selected':''}" onclick="selectDegree('${d}')">
+      <div class="degree-name">${d}</div>
+      <div class="degree-check">${selDegree===d?'✓':''}</div>
+    </div>
+  `).join('');
+}
+
+function selectDegree(d) {
+  selDegree=d;
+  renderDegreeGrid();
+}
+
+// ═══ PAY PLAN ═══
+function renderPayPlan() {
+  // Situations
+  document.getElementById('situationGrid').innerHTML=SITUATIONS.map(s=>`
+    <button class="sit-btn ${selSituation===s?'selected':''}" onclick="selectSituation('${s}')">${s}</button>
+  `).join('');
+
+  // Family
+  document.getElementById('familyChoices').innerHTML=FAMILY_OPTIONS.map(o=>`
+    <button class="choice-btn ${selFamily===o.val||selFamily===o.label?'selected':''}"
+      onclick="pickFamily(${JSON.stringify(o.val)},'${o.label}')">${o.label}</button>
+  `).join('');
+
+  // Fund
+  document.getElementById('fundChoices').innerHTML=FUND_OPTIONS.map(o=>`
+    <button class="choice-btn ${selFund===o.val?'selected':''}"
+      onclick="pickFund(${JSON.stringify(o.val)},${JSON.stringify(o.label)})">${o.label}</button>
+  `).join('');
+
+  // Grants
+  document.getElementById('grantChoices').innerHTML=GRANT_OPTIONS.map(o=>`
+    <button class="choice-btn ${selGrant===o.val?'selected':''}"
+      onclick="pickGrant(${JSON.stringify(o.val)},${JSON.stringify(o.label)})">${o.label}</button>
+  `).join('');
+
+  updateBorrowEstimate();
+  updateAssump();
+}
+
+function selectSituation(s) { selSituation=s; renderPayPlan(); }
+
+function pickFamily(val,label) {
+  if(val==='custom') {
+    const v=prompt('Enter yearly family contribution ($):');
+    selFamily=parseInt(v)||0;
+  } else { selFamily=val; }
+  renderPayPlan();
+}
+function pickFund(val,label) {
+  if(val==='custom') {
+    const v=prompt('Enter total college fund amount ($):');
+    selFund=parseInt(v)||0;
+  } else { selFund=val; }
+  renderPayPlan();
+}
+function pickGrant(val,label) {
+  if(val==='avg') selGrant=8000; // average federal grant
+  else selGrant=val;
+  renderPayPlan();
+}
+
+function getSalary() {
+  if(selCareer?.id==='custom') return customSalary||parseInt(document.getElementById('salSlider').value)||55000;
+  return selCareer?.salary||parseInt(document.getElementById('salSlider').value)||55000;
+}
+function getRate() { return parseFloat(document.getElementById('rateSlider').value)||6.5; }
+function getTerm() { return parseInt(document.getElementById('termSlider').value)||10; }
+
+function avgYearlyCost() {
+  if(!schools.length) return 35000; // fallback avg
+  const avg = schools.reduce((sum,s)=>sum+(s.tuitionIn||25000)+(s.rb||12000),0)/schools.length;
+  return avg;
+}
+
+function updateBorrowEstimate() {
+  const yearlyCost = avgYearlyCost();
+  const familyPerYear = typeof selFamily==='number'?selFamily:0;
+  const fundPerYear = typeof selFund==='number'?selFund/4:0; // spread over 4 years
+  const grantsPerYear = typeof selGrant==='number'?selGrant:0;
+  const loansPerYear = Math.max(0, yearlyCost - familyPerYear - fundPerYear - grantsPerYear);
+  const totalLoans = loansPerYear * 4;
+
+  document.getElementById('borrowEstimate').innerHTML=`
+    <div class="borrow-box">
+      <div class="borrow-title">Estimated yearly borrowing need (avg across your schools)</div>
+      <div class="borrow-row"><span>Total yearly cost (avg)</span><span class="borrow-val">${fmt(yearlyCost)}</span></div>
+      <div class="borrow-row"><span>− Grants / scholarships</span><span class="borrow-deduct">−${fmt(grantsPerYear)}</span></div>
+      <div class="borrow-row"><span>− Family contribution</span><span class="borrow-deduct">−${fmt(familyPerYear)}</span></div>
+      <div class="borrow-row"><span>− College fund (÷ 4 yrs)</span><span class="borrow-deduct">−${fmt(fundPerYear)}</span></div>
+      <div class="borrow-row total"><span>= Estimated loans per year</span><span class="borrow-val">${fmt(loansPerYear)}</span></div>
+    </div>
+  `;
+}
+
+function updateAssump() {
+  const rate=getRate(), term=getTerm(), sal=getSalary();
+  document.getElementById('rateDisplay').textContent=fmtP(rate);
+  document.getElementById('termDisplay').textContent=term+' years';
+  document.getElementById('salDisplay').textContent=fmt(sal);
+  document.getElementById('aRate').innerHTML=fmtP(rate)+' <button class="edit-btn" onclick="toggleAssumpEdit()">Edit</button>';
+  document.getElementById('aTerm').innerHTML=term+' years';
+  document.getElementById('aSal').innerHTML=fmt(sal)+'/yr';
+  updateBorrowEstimate();
+}
+
+function toggleAssumpEdit() {
+  const card=document.getElementById('assumpEditCard');
+  card.style.display = card.style.display==='none'?'block':'none';
+}
+
+function toggleLegal() {
+  const body=document.getElementById('legalBody');
+  const arrow=document.getElementById('legalArrow');
+  body.classList.toggle('open');
+  arrow.textContent = body.classList.contains('open')?'▲':'▼';
 }
 
 // ═══ API SEARCH ═══
@@ -854,7 +1128,7 @@ function onSearch(v) {
   searchTimer=setTimeout(async()=>{
     const results=await fetchFromAPI(v);
     if(!results.length){
-      dd.innerHTML='<div class="ddi-loading">No results found. Try a nickname like "Penn", "UT Austin", or "UVA".</div>';
+      dd.innerHTML='<div class="ddi-loading">No results. Try a nickname like "Penn", "UT Austin", or "UVA".</div>';
     } else {
       dd.innerHTML=results.map((r,i)=>`
         <div class="ddi" onclick="addSchool(${i})">
@@ -890,58 +1164,17 @@ function renderSchoolList(){
         <div>
           <div class="sc-name">${s.name}</div>
           <div class="sc-loc">${s.city}, ${s.state}</div>
-          <span class="sc-badge ${s.isLive?'live':'cached'}">${s.isLive?'✓ Live federal data':'✓ Verified data'}</span>
         </div>
         <button class="sc-remove" onclick="removeSchool(${s.uid})">✕ Remove</button>
       </div>
-      <div class="sc-stats">
-        <div class="sc-stat"><div class="sc-stat-label">In-state tuition</div><div class="sc-stat-val">${fmt(s.tuitionIn)}</div></div>
-        <div class="sc-stat"><div class="sc-stat-label">Room &amp; board</div><div class="sc-stat-val">${fmt(s.rb)}</div></div>
-        <div class="sc-stat"><div class="sc-stat-label">Admit rate</div><div class="sc-stat-val">${s.admRate!=null?Math.round(s.admRate*100)+'%':'N/A'}</div></div>
-        <div class="sc-stat"><div class="sc-stat-label">Grad rate</div><div class="sc-stat-val">${s.gradRate!=null?Math.round(s.gradRate*100)+'%':'N/A'}</div></div>
-      </div>
-      <div class="sc-divider">Your situation — optional, leave blank to use federal averages</div>
-      <div class="sc-inputs">
-        <div class="field"><div class="field-label">Residency</div><select class="field-input" id="res_${s.uid}"><option value="in">In-state</option><option value="out">Out-of-state</option></select></div>
-        <div class="field"><div class="field-label">Years to graduate</div><input class="field-input" id="yrs_${s.uid}" type="number" value="4" min="2" max="6"/></div>
-        <div class="field"><div class="field-label">Grants / scholarships / yr</div><input class="field-input" id="aid_${s.uid}" type="number" placeholder="e.g. 8,000"/></div>
-        <div class="field"><div class="field-label">Loans / yr (blank = federal median)</div><input class="field-input" id="loan_${s.uid}" type="number" placeholder="e.g. 7,500"/></div>
+      <div class="sc-stats-compact">
+        <div class="sc-stat"><div class="sc-stat-label">Tuition</div><div class="sc-stat-val">${fmt(s.tuitionIn)}</div></div>
+        <div class="sc-stat"><div class="sc-stat-label">Room &amp; Board</div><div class="sc-stat-val">${fmt(s.rb)}</div></div>
+        <div class="sc-stat"><div class="sc-stat-label">Grad Rate</div><div class="sc-stat-val">${s.gradRate!=null?Math.round(s.gradRate*100)+'%':'N/A'}</div></div>
       </div>
     </div>`).join('');
-  if(cc) html+=`<div class="school-card cc-card"><div class="sc-header"><div><div class="sc-name blue">🏫 Community College → Transfer Path</div><div class="sc-loc">2 years CC + 2 years at your chosen transfer school</div></div></div><div class="sc-stats"><div class="sc-stat"><div class="sc-stat-label">Avg CC tuition/yr</div><div class="sc-stat-val">~$4,000</div></div><div class="sc-stat"><div class="sc-stat-label">Room &amp; board</div><div class="sc-stat-val">~$9,000</div></div><div class="sc-stat"><div class="sc-stat-label">Est. savings</div><div class="sc-stat-val" style="color:var(--teal)">$20–40k</div></div><div class="sc-stat"><div class="sc-stat-label">Transfer admit</div><div class="sc-stat-val">60–80%</div></div></div><div class="sc-divider">Customize</div><div class="sc-inputs"><div class="field"><div class="field-label">CC tuition / yr</div><input class="field-input" id="cc_t" type="number" value="4000"/></div><div class="field"><div class="field-label">CC room &amp; board / yr</div><input class="field-input" id="cc_rb" type="number" value="9000"/></div><div class="field"><div class="field-label">CC grants / yr</div><input class="field-input" id="cc_aid" type="number" placeholder="e.g. 2,000"/></div><div class="field"><div class="field-label">Transfer destination</div><select class="field-input" id="cc_dest">${schools.map(s=>`<option value="${s.uid}">${s.name}</option>`).join('')}</select></div></div></div>`;
+  if(cc) html+=`<div class="school-card cc-card"><div class="sc-header"><div><div class="sc-name blue">🏫 Community College → Transfer Path</div><div class="sc-loc">2 years CC + 2 years at a 4-year school</div></div></div><div class="sc-stats-compact"><div class="sc-stat"><div class="sc-stat-label">Avg CC tuition</div><div class="sc-stat-val">~$4,000/yr</div></div><div class="sc-stat"><div class="sc-stat-label">Est. savings</div><div class="sc-stat-val" style="color:var(--teal)">$20–40k</div></div><div class="sc-stat"><div class="sc-stat-label">Transfer admit</div><div class="sc-stat-val">60–80%</div></div></div></div>`;
   el.innerHTML=html;
-}
-
-// ═══ MAJORS & CAREERS ═══
-function renderMajorTabs(){
-  document.getElementById('majorTabs').innerHTML=Object.entries(MAJORS).map(([id,m])=>
-    `<button class="major-tab ${id===selMajor?'active':''}" onclick="selectMajor('${id}')">${m.label}</button>`
-  ).join('');
-}
-
-function selectMajor(id){selMajor=id;selCareer=null;renderMajorTabs();renderCareerGrid();}
-
-function renderCareerGrid(){
-  const careers=MAJORS[selMajor]?.careers||[];
-  document.getElementById('careerGrid').innerHTML=careers.map(c=>`
-    <div class="career-pill ${selCareer&&selCareer.id===c.id?'selected':''}" onclick="selectCareer('${c.id}')">
-      <div class="cp-major">${MAJORS[selMajor].label}</div>
-      <div class="cp-title">${c.title}</div>
-      <div class="cp-salary">~${fmt(c.salary)} starting · BLS data</div>
-    </div>`).join('');
-}
-
-function selectCareer(id){
-  selCareer=MAJORS[selMajor]?.careers.find(c=>c.id===id);
-  if(selCareer){document.getElementById('salSlider').value=selCareer.salary;document.getElementById('salHint').textContent='BLS median for '+selCareer.title+' — adjust if needed';updateScenario();}
-  renderCareerGrid();
-}
-
-// ═══ SCENARIO ═══
-function updateScenario(){
-  document.getElementById('salDisplay').textContent=fmt(parseInt(document.getElementById('salSlider').value));
-  document.getElementById('rateDisplay').textContent=fmtP(parseFloat(document.getElementById('rateSlider').value));
-  document.getElementById('termDisplay').textContent=parseInt(document.getElementById('termSlider').value)+' years';
 }
 
 // ═══ CALCULATIONS ═══
@@ -972,111 +1205,173 @@ function ringHTML(score){
 }
 
 // ═══ RESULTS ═══
-function renderResults(){
-  const salary=parseInt(document.getElementById('salSlider').value);
-  const rate=parseFloat(document.getElementById('rateSlider').value);
-  const term=parseInt(document.getElementById('termSlider').value);
+function renderResults() {
+  const salary=getSalary();
+  const rate=getRate();
+  const term=getTerm();
   const mi=salary/12;
+
+  // Family/fund/grant per year
+  const familyPerYear=typeof selFamily==='number'?selFamily:0;
+  const fundPerYear=typeof selFund==='number'?selFund/4:0;
+  const grantsPerYear=typeof selGrant==='number'?selGrant:0;
+
   document.getElementById('rSal').textContent=fmt(salary)+'/yr';
   document.getElementById('rRate').textContent=fmtP(rate);
   document.getElementById('rTerm').textContent=term+' yrs';
   document.getElementById('rCar').textContent=selCareer?selCareer.title:'Custom';
-  document.getElementById('rMaj').textContent=MAJORS[selMajor]?.label||'Custom';
+
   const cc=document.getElementById('ccMode').checked;
+
   let data=schools.map(s=>{
-    const isIn=(document.getElementById(`res_${s.uid}`)?.value||'in')==='in';
-    const tuit=(isIn?s.tuitionIn:s.tuitionOut)||0;
-    const rb=s.rb||0,yrs=parseFloat(document.getElementById(`yrs_${s.uid}`)?.value)||4;
-    const aid=parseFloat(document.getElementById(`aid_${s.uid}`)?.value)||0;
-    const lpy=parseFloat(document.getElementById(`loan_${s.uid}`)?.value)||0;
-    const net=Math.max(0,(tuit+rb)-aid);
-    const loans=lpy>0?lpy*yrs:(s.medDebt||20000);
-    const totalCost=net*yrs,mo=calcMonthly(loans,rate,term);
-    const dti=mi>0?mo/mi*100:0,interest=loans>0?(mo*term*12)-loans:0;
+    const tuit=s.tuitionIn||25000;
+    const rb=s.rb||12000;
+    const yrs=4;
+    const yearlyAid=familyPerYear+fundPerYear+grantsPerYear;
+    const loansPerYear=Math.max(0,(tuit+rb)-yearlyAid);
+    const loans=loansPerYear*yrs;
+    const totalCost=(tuit+rb)*yrs;
+    const mo=calcMonthly(loans,rate,term);
+    const dti=mi>0?mo/mi*100:0;
+    const interest=loans>0?(mo*term*12)-loans:0;
     const vs=calcVS(s,salary,loans,rate,term);
-    return{...s,isIn,tuit,rb,net,loans,totalCost,mo,dti,interest,yrs,loanSrc:lpy>0?'your input':'federal median',vs,isCCPath:false};
+    return{...s,tuit,rb,loans,totalCost,mo,dti,interest,yrs,vs,isCCPath:false};
   });
+
   if(cc&&schools.length>0){
-    const destUID=document.getElementById('cc_dest')?.value;
-    const dest=schools.find(s=>String(s.uid)===String(destUID))||schools[0];
-    const ccT=parseFloat(document.getElementById('cc_t')?.value)||4000;
-    const ccRB=parseFloat(document.getElementById('cc_rb')?.value)||9000;
-    const ccAid=parseFloat(document.getElementById('cc_aid')?.value)||0;
+    const dest=schools[0];
+    const ccT=4000,ccRB=9000,ccAid=grantsPerYear+familyPerYear;
     const ccNet=Math.max(0,(ccT+ccRB)-ccAid);
-    const totalCost=ccNet*2+((dest.tuitionIn||0)+(dest.rb||0))*2;
+    const totalCost=ccNet*2+((dest.tuitionIn||25000)+(dest.rb||12000))*2;
     const loans=Math.max(0,totalCost*0.55),mo=calcMonthly(loans,rate,term);
     const dti=mi>0?mo/mi*100:0,interest=loans>0?(mo*term*12)-loans:0;
-    const ccS={name:'CC → '+dest.name,city:'Community College + '+dest.city,state:dest.state,tuitionIn:ccT,rb:ccRB,gradRate:.78,admRate:.70,earlyCareerSal:dest.earlyCareerSal,midCareerSal:dest.midCareerSal,networkScore:dest.networkScore||65};
+    const ccS={name:'CC → '+dest.name,city:'Community College + '+dest.city,state:dest.state,tuitionIn:ccT,rb:ccRB,gradRate:.78,admRate:.70,earlyCareerSal:dest.earlyCareerSal,networkScore:dest.networkScore||65};
     const vs=calcVS(ccS,salary,loans,rate,term);
-    data.push({...ccS,isIn:true,tuit:ccT,rb:ccRB,net:ccNet,loans,totalCost,mo,dti,interest,yrs:4,loanSrc:'estimated',vs,isCCPath:true,isLive:false});
+    data.push({...ccS,tuit:ccT,rb:ccRB,loans,totalCost,mo,dti,interest,yrs:4,vs,isCCPath:true,isLive:false});
   }
+
   data.sort((a,b)=>b.vs.total-a.vs.total);
+
   document.getElementById('resultsList').innerHTML=data.map((s,i)=>{
-    const isBest=i===0;
-    let dtc='green',bc='#1D9E75';
-    if(s.dti>20){dtc='red';bc='#E24B4A';}else if(s.dti>10){dtc='amber';bc='#EF9F27';}
-    const bw=Math.min(100,Math.round(s.dti));
     const dtiColor=s.dti>20?'#E24B4A':s.dti>10?'#EF9F27':'#1D9E75';
-    return`<div class="result-card ${isBest?(s.isCCPath?'cc-result':'best'):''} ${s.isCCPath?'cc-result':''}">
-      ${isBest?(s.isCCPath?'<div class="best-badge blue">BEST VALUE</div>':'<div class="best-badge green">BEST VALUE</div>'):''}
-      <div class="rc-header">
-        <div><div class="rc-name">${s.name}</div><div class="rc-loc">${s.city}, ${s.state}</div></div>
-        <span class="rc-data-badge">${s.isLive?'Live API':'Verified'}</span>
-      </div>
-      <div class="monthly-hero">
-        <div class="mh-left">
-          <div class="mh-label">Estimated monthly loan payment</div>
-          <div class="mh-amount">${fmt(s.mo)}<span>/mo</span></div>
-          <div class="mh-sub">${term}-year repayment · ${fmtP(rate)} interest rate</div>
+    const comfortLabel=s.dti>20?'High Risk':s.dti>10?'Manageable':'Comfortable';
+    const comfortClass=s.dti>20?'high-risk':s.dti>10?'manageable':'comfortable';
+    const riskBadgeClass=i===0?'best-value':s.dti>20?'high-risk':'manageable';
+    const riskBadgeLabel=i===0?'⭐ BEST VALUE':s.dti>20?'⚠️ HIGH RISK':'✓ MANAGEABLE';
+    const bw=Math.min(100,Math.round(s.dti));
+    const uid='rc_'+i;
+
+    return `<div class="result-card ${i===0&&!s.isCCPath?'best':''} ${s.isCCPath?'cc-result':''}">
+      <div class="rc-summary" onclick="toggleDetail('${uid}')">
+        <div class="risk-badge ${riskBadgeClass}">${riskBadgeLabel}</div>
+        <div class="rc-header">
+          <div>
+            <div class="rc-name">${s.name}</div>
+            <div class="rc-loc">${s.city}, ${s.state}</div>
+          </div>
+          <div class="rc-chevron" id="chev_${uid}">›</div>
         </div>
-        <div class="mh-right">
-          <div class="mh-label">Debt-to-income</div>
-          <div class="mh-dti-val" style="color:${dtiColor}">${Math.round(s.dti)}%</div>
-          <div class="mh-dti-label">of monthly income</div>
-        </div>
-      </div>
-      <div class="vs-row">
-        ${ringHTML(s.vs.total)}
-        <div class="vs-content">
-          <div class="vs-title">Gradwise Value Score</div>
-          <div class="vs-bars">
-            <div class="vs-bar-row"><div class="vs-bar-name">Affordability</div><div class="vs-bar-bg"><div class="vs-bar-fill" style="width:${Math.round(s.vs.a/30*100)}%;background:#1D9E75"></div></div><div class="vs-bar-val" style="color:#1D9E75">${s.vs.a}/30</div></div>
-            <div class="vs-bar-row"><div class="vs-bar-name">Earning power</div><div class="vs-bar-bg"><div class="vs-bar-fill" style="width:${Math.round(s.vs.o/25*100)}%;background:#185FA5"></div></div><div class="vs-bar-val" style="color:#185FA5">${s.vs.o}/25</div></div>
-            <div class="vs-bar-row"><div class="vs-bar-name">Graduation rate</div><div class="vs-bar-bg"><div class="vs-bar-fill" style="width:${Math.round(s.vs.g/20*100)}%;background:#7F77DD"></div></div><div class="vs-bar-val" style="color:#7F77DD">${s.vs.g}/20</div></div>
-            <div class="vs-bar-row"><div class="vs-bar-name">Selectivity</div><div class="vs-bar-bg"><div class="vs-bar-fill" style="width:${Math.round(s.vs.p/15*100)}%;background:#BA7517"></div></div><div class="vs-bar-val" style="color:#BA7517">${s.vs.p}/15</div></div>
-            <div class="vs-bar-row"><div class="vs-bar-name">Network strength</div><div class="vs-bar-bg"><div class="vs-bar-fill" style="width:${Math.round(s.vs.n/10*100)}%;background:#D85A30"></div></div><div class="vs-bar-val" style="color:#D85A30">${s.vs.n}/10</div></div>
+        <div class="rc-hero-row">
+          <div>
+            <div style="font-size:11px;color:var(--gray-400);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px">Est. monthly payment</div>
+            <div class="rc-monthly">${fmt(s.mo)}<span>/mo</span></div>
+          </div>
+          <div class="rc-dti-wrap">
+            <div class="rc-dti-pct" style="color:${dtiColor}">${Math.round(s.dti)}%</div>
+            <div class="rc-dti-label">of monthly income</div>
+            <div class="rc-comfort ${comfortClass}">${comfortLabel}</div>
           </div>
         </div>
       </div>
-      <div class="rc-metrics">
-        <div class="metric"><div class="metric-label">Total debt</div><div class="metric-value">${fmt(s.loans)}</div></div>
-        <div class="metric"><div class="metric-label">4-yr net cost</div><div class="metric-value">${fmt(s.totalCost)}</div></div>
-        <div class="metric"><div class="metric-label">Interest paid</div><div class="metric-value">${fmt(s.interest)}</div></div>
-        <div class="metric"><div class="metric-label">Avg net price</div><div class="metric-value">${fmt(s.anp)}</div></div>
-      </div>
-      <div class="dti-bar-wrap">
-        <div class="dti-bar-label"><span>Debt-to-income ratio</span><strong style="color:${bc}">${Math.round(s.dti)}% of monthly income</strong></div>
-        <div class="dti-bar-bg"><div class="dti-bar-fill" style="width:${bw}%;background:${bc}"></div></div>
-      </div>
-      <div class="rc-footer">
-        <span>Grad rate: <strong>${s.gradRate!=null?Math.round(s.gradRate*100)+'%':'N/A'}</strong></span>
-        <span>Admit rate: <strong>${s.admRate!=null?Math.round(s.admRate*100)+'%':'N/A'}</strong></span>
-        <span>Early career: <strong>${fmt(s.earlyCareerSal)}</strong></span>
-        ${s.midCareerSal?`<span>Mid-career: <strong>${fmt(s.midCareerSal)}</strong></span>`:''}
-        <span>Debt source: <strong>${s.loanSrc}</strong></span>
+      <div class="rc-detail" id="${uid}">
+        <div class="monthly-hero">
+          <div>
+            <div class="mh-label">Estimated monthly loan payment</div>
+            <div class="mh-amount">${fmt(s.mo)}<span>/mo</span></div>
+            <div class="mh-sub">${term}-year repayment · ${fmtP(rate)} interest rate</div>
+          </div>
+          <div class="mh-right">
+            <div class="mh-label">Debt-to-income</div>
+            <div class="mh-dti-val" style="color:${dtiColor}">${Math.round(s.dti)}%</div>
+            <div class="mh-dti-label">of monthly income</div>
+          </div>
+        </div>
+        <div class="vs-row">
+          ${ringHTML(s.vs.total)}
+          <div class="vs-content">
+            <div class="vs-title">Gradwise Value Score</div>
+            <div class="vs-bars">
+              <div class="vs-bar-row"><div class="vs-bar-name">Affordability</div><div class="vs-bar-bg"><div class="vs-bar-fill" style="width:${Math.round(s.vs.a/30*100)}%;background:#1D9E75"></div></div><div class="vs-bar-val" style="color:#1D9E75">${s.vs.a}/30</div></div>
+              <div class="vs-bar-row"><div class="vs-bar-name">Earning power</div><div class="vs-bar-bg"><div class="vs-bar-fill" style="width:${Math.round(s.vs.o/25*100)}%;background:#185FA5"></div></div><div class="vs-bar-val" style="color:#185FA5">${s.vs.o}/25</div></div>
+              <div class="vs-bar-row"><div class="vs-bar-name">Graduation rate</div><div class="vs-bar-bg"><div class="vs-bar-fill" style="width:${Math.round(s.vs.g/20*100)}%;background:#7F77DD"></div></div><div class="vs-bar-val" style="color:#7F77DD">${s.vs.g}/20</div></div>
+              <div class="vs-bar-row"><div class="vs-bar-name">Selectivity</div><div class="vs-bar-bg"><div class="vs-bar-fill" style="width:${Math.round(s.vs.p/15*100)}%;background:#BA7517"></div></div><div class="vs-bar-val" style="color:#BA7517">${s.vs.p}/15</div></div>
+              <div class="vs-bar-row"><div class="vs-bar-name">Network strength</div><div class="vs-bar-bg"><div class="vs-bar-fill" style="width:${Math.round(s.vs.n/10*100)}%;background:#D85A30"></div></div><div class="vs-bar-val" style="color:#D85A30">${s.vs.n}/10</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="rc-metrics">
+          <div class="metric"><div class="metric-label">Total debt</div><div class="metric-value">${fmt(s.loans)}</div></div>
+          <div class="metric"><div class="metric-label">4-yr net cost</div><div class="metric-value">${fmt(s.totalCost)}</div></div>
+          <div class="metric"><div class="metric-label">Interest paid</div><div class="metric-value">${fmt(s.interest)}</div></div>
+        </div>
+        <div class="dti-bar-wrap">
+          <div class="dti-bar-label"><span>Debt-to-income ratio</span><strong style="color:${dtiColor}">${Math.round(s.dti)}% of monthly income</strong></div>
+          <div class="dti-bar-bg"><div class="dti-bar-fill" style="width:${bw}%;background:${dtiColor}"></div></div>
+        </div>
+        <div class="rc-footer">
+          <span>Grad rate: <strong>${s.gradRate!=null?Math.round(s.gradRate*100)+'%':'N/A'}</strong></span>
+          <span>Admit rate: <strong>${s.admRate!=null?Math.round(s.admRate*100)+'%':'N/A'}</strong></span>
+          <span>Early career: <strong>${fmt(s.earlyCareerSal)}</strong></span>
+          ${s.midCareerSal?`<span>Mid-career: <strong>${fmt(s.midCareerSal)}</strong></span>`:''}
+        </div>
       </div>
     </div>`;
   }).join('');
+
+  // Auto-expand first result
+  if(data.length) toggleDetail('rc_0');
 }
 
-// ═══ INIT ═══
+function toggleDetail(uid) {
+  const detail=document.getElementById(uid);
+  const chev=document.getElementById('chev_'+uid);
+  if(!detail) return;
+  detail.classList.toggle('open');
+  if(chev) chev.classList.toggle('open');
+}
+
+// ═══ EMAIL ═══
+function submitEmail() {
+  const email=document.getElementById('emailInput').value.trim();
+  if(email&&email.includes('@')) {
+    console.log('Email captured:',email);
+    document.querySelector('.email-section').innerHTML='<div style="padding:1rem;text-align:center;color:var(--teal-dark);font-weight:600">✓ Comparison sent! Check your inbox.</div>';
+  } else {
+    alert('Please enter a valid email address.');
+  }
+}
+
+// ═══ RESTART ═══
+function restart() {
+  schools=[]; selIndustry=null; selCareer=null; selDegree=null;
+  selSituation=null; selFamily=0; selFund=0; selGrant=0; customSalary=null;
+  document.getElementById('schoolSearch').value='';
+  document.getElementById('ccMode').checked=false;
+  renderSchoolList(); renderIndustryGrid();
+  goStep(0);
+  document.querySelectorAll('.wizard-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('wstep0').classList.add('active');
+}
+
+// ═══ CLOSE DROPDOWN ═══
 document.addEventListener('click',e=>{
   if(!e.target.closest('.search-wrap')&&!e.target.closest('.dropdown'))
     document.getElementById('dd').classList.remove('open');
 });
-renderMajorTabs();
-renderCareerGrid();
-updateScenario();
+
+// ═══ INIT ═══
+renderIndustryGrid();
+updateAssump();
 </script>
 </body>
 </html>
