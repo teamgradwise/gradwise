@@ -662,7 +662,7 @@ input[type=range]::-webkit-slider-thumb { appearance: none; width: 22px; height:
 
 <script>
 // ═══ CONFIG ═══
-const API_KEY = 'BdayGUfXmUJB2SbcsNofr8pmbkJOMXJpABqYgFIp';
+const API_KEY = 'YOUR_API_KEY_HERE';
 const SCORECARD_BASE = 'https://api.data.gov/ed/collegescorecard/v1/schools.json';
 const SCORECARD_FIELDS = ['school.name','school.city','school.state','latest.cost.tuition.in_state','latest.cost.tuition.out_of_state','latest.cost.roomboard.oncampus','latest.aid.median_debt.completers.overall','latest.cost.avg_net_price.overall','latest.admissions.admission_rate.overall','latest.completion.completion_rate_4yr_150nt','latest.earnings.10_yrs_after_entry.median','id'].join(',');
 
@@ -1094,7 +1094,7 @@ function toggleLegal() {
 
 // ═══ API SEARCH ═══
 async function fetchFromAPI(query) {
-  if(API_KEY==='BdayGUfXmUJB2SbcsNofr8pmbkJOMXJpABqYgFIp') return searchFallback(query);
+  if(API_KEY==='YOUR_API_KEY_HERE') return searchFallback(query);
   try {
     const url=`${SCORECARD_BASE}?api_key=${API_KEY}&school.name=${encodeURIComponent(query)}&fields=${SCORECARD_FIELDS}&per_page=8&school.degrees_awarded.predominant=3`;
     const res=await fetch(url);
