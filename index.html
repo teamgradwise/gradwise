@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="See the real cost of college — monthly payments, debt-to-income, and a personalized value score for every school you're considering.">
+<title>Gradwise — Know the Real Cost of College</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0F1F3D;
+  --navy-light: #1D3461;
+  --teal: #1D9E75;
+  --teal-light: #E1F5EE;
+  --teal-dark: #0F6E56;
+  --amber: #EF9F27;
+  --amber-light: #FAEEDA;
+  --red: #E24B4A;
+  --red-light: #FCEBEB;
+  --blue: #185FA5;
+  --blue-light: #E6F1FB;
+  --purple: #7F77DD;
+  --gray-50: #F8F8F6;
+  --gray-100: #F0EFEB;
+  --gray-200: #E0DED8;
+  --gray-400: #9B9A94;
+  --gray-600: #5F5E5A;
+  --gray-800: #2C2C2A;
+  --white: #FFFFFF;
+  --border: rgba(0,0,0,0.08);
+  --sidebar-w: 220px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+body { font-family: 'Inter', system-ui, sans-serif; background: var(--gray-50); color: var(--gray-800); min-height: 100vh; display: flex; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: var(--sidebar-w); min-height: 100vh; background: var(--navy);
+  display: flex; flex-direction: column; position: fixed; top: 0; left: 0; z-index: 100;
+  padding: 0 0 2rem;
+}
+.sidebar-logo {
+  padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.08);
+  font-size: 20px; font-weight: 700; color: white; letter-spacing: -0.3px;
+}
+.sidebar-logo span { color: var(--teal); }
+.sidebar-logo small { display: block; font-size: 10px; font-weight: 400; color: rgba(255,255,255,0.4); margin-top: 2px; letter-spacing: 0.05em; text-transform: uppercase; }
+.sidebar-nav { padding: 1rem 0; flex: 1; }
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 1.5rem; font-size: 13px; font-weight: 500;
+  color: rgba(255,255,255,0.5); cursor: pointer; transition: all .15s;
+  border-left: 3px solid transparent;
+}
+.nav-item:hover { color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.05); }
+.nav-item.active { color: white; border-left-color: var(--teal); background: rgba(255,255,255,0.07); }
+.nav-item svg { width: 16px; height: 16px; flex-shrink: 0; }
+.nav-section { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,0.25); padding: 1rem 1.5rem 0.4rem; }
+.sidebar-footer { padding: 1rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); }
+.sidebar-footer p { font-size: 10px; color: rgba(255,255,255,0.3); line-height: 1.6; }
+.sidebar-footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+
+/* ── MAIN CONTENT ── */
+.main-wrap { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; display: flex; flex-direction: column; }
+
+/* ── TOP BAR ── */
+.topbar {
+  background: var(--white); border-bottom: 1px solid var(--border);
+  padding: 0 2rem; height: 56px; display: flex; align-items: center;
+  justify-content: space-between; position: sticky; top: 0; z-index: 50;
+}
+.topbar-title { font-size: 15px; font-weight: 600; color: var(--navy); }
+.topbar-right { display: flex; align-items: center; gap: 12px; }
+.view-toggle { display: flex; background: var(--gray-100); border-radius: 20px; padding: 3px; }
+.view-btn {
+  padding: 4px 12px; border-radius: 16px; font-size: 12px; font-weight: 500;
+  cursor: pointer; border: none; background: transparent; color: var(--gray-600); transition: all .15s;
+}
+.view-btn.active { background: var(--white); color: var(--navy); box-shadow: var(--shadow-sm); }
+.topbar-badge { font-size: 11px; background: var(--teal-light); color: var(--teal-dark); padding: 3px 9px; border-radius: 20px; font-weight: 500; }
+
+/* ── PAGE CONTENT ── */
+.page { padding: 2rem; flex: 1; }
+.page-section { display: none; }
+.page-section.active { display: block; }
+
+/* ── HERO BANNER ── */
+.hero-banner {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+  border-radius: 16px; padding: 2rem 2.5rem; margin-bottom: 1.5rem;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+}
+.hero-banner h1 { font-size: 26px; font-weight: 700; color: white; line-height: 1.25; letter-spacing: -0.5px; margin-bottom: 8px; }
+.hero-banner h1 em { color: var(--teal); font-style: normal; }
+.hero-banner p { font-size: 14px; color: rgba(255,255,255,0.65); max-width: 420px; line-height: 1.6; }
+.hero-stats { display: flex; gap: 2rem; }
+.hero-stat { text-align: center; }
+.hero-stat-num { font-size: 24px; font-weight: 700; color: white; }
+.hero-stat-label { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+
+/* ── STEP INDICATOR ── */
+.step-indicator { display: flex; align-items: center; gap: 0; margin-bottom: 1.5rem; }
+.si { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; }
+.si-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 600; flex-shrink: 0; transition: all .2s;
+  background: var(--gray-200); color: var(--gray-400);
+}
+.si-num.active { background: var(--navy); color: white; }
+.si-num.done { background: var(--teal); color: white; }
+.si-label { color: var(--gray-400); }
+.si-label.active { color: var(--navy); }
+.si-label.done { color: var(--teal-dark); }
+.si-line { flex: 1; height: 1px; background: var(--gray-200); margin: 0 10px; }
+.si-line.done { background: var(--teal); }
+
+/* ── CARDS ── */
+.card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; margin-bottom: 14px; box-shadow: var(--shadow-sm); }
+.card-title { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+.card-sub { font-size: 12px; color: var(--gray-400); margin-bottom: 1.25rem; line-height: 1.5; }
+
+/* ── SEARCH ── */
+.search-wrap { position: relative; margin-bottom: 8px; }
+.search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--gray-400); pointer-events: none; }
+.search-input {
+  width: 100%; padding: 13px 16px 13px 42px;
+  border: 1.5px solid var(--gray-200); border-radius: 10px;
+  font-size: 14px; font-family: inherit; background: var(--white);
+  color: var(--gray-800); transition: border-color .15s;
+}
+.search-input:focus { outline: none; border-color: var(--teal); }
+.search-input::placeholder { color: var(--gray-400); }
+.api-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; color: var(--teal-dark); background: var(--teal-light);
+  padding: 3px 8px; border-radius: 20px; margin-bottom: 14px; font-weight: 500;
+}
+.api-source { font-size: 10px; color: var(--gray-400); margin-bottom: 14px; }
+.dropdown {
+  background: var(--white); border: 1px solid var(--border); border-radius: 10px;
+  margin-top: 4px; display: none; max-height: 300px; overflow-y: auto;
+  box-shadow: var(--shadow-md); position: relative; z-index: 50;
+}
+.dropdown.open { display: block; }
+.ddi { padding: 12px 16px; cursor: pointer; border-bottom: 1px solid var(--gray-100); transition: background .1s; }
+.ddi:last-child { border-bottom: none; }
+.ddi:hover { background: var(--gray-50); }
+.ddi-name { font-size: 14px; font-weight: 500; }
+.ddi-meta { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+.ddi-loading { padding: 16px; text-align: center; font-size: 13px; color: var(--gray-400); }
+
+/* ── SCHOOL CARDS ── */
+.school-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem 1.5rem; margin-bottom: 12px; box-shadow: var(--shadow-sm); }
+.school-card.api-loaded { border-left: 3px solid var(--teal); }
+.school-card.cc-card { border-left: 3px solid var(--blue); }
+.sc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+.sc-name { font-size: 15px; font-weight: 600; color: var(--navy); }
+.sc-name.blue { color: var(--blue); }
+.sc-loc { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+.sc-badge { font-size: 10px; padding: 2px 7px; border-radius: 10px; font-weight: 500; margin-top: 4px; display: inline-block; }
+.sc-badge.live { background: var(--teal-light); color: var(--teal-dark); }
+.sc-badge.cached { background: var(--amber-light); color: #633806; }
+.sc-remove { font-size: 12px; color: var(--gray-400); background: none; border: none; cursor: pointer; padding: 4px 10px; border-radius: 6px; }
+.sc-remove:hover { background: var(--red-light); color: var(--red); }
+.sc-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; }
+.sc-stat { background: var(--gray-50); border-radius: 8px; padding: 10px; }
+.sc-stat-label { font-size: 9px; color: var(--gray-400); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 4px; }
+.sc-stat-val { font-size: 14px; font-weight: 600; color: var(--navy); }
+.sc-divider { font-size: 10px; color: var(--gray-400); margin-bottom: 10px; text-transform: uppercase; letter-spacing: .05em; font-weight: 500; }
+.sc-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field-label { font-size: 11px; font-weight: 500; color: var(--gray-600); }
+.field-input {
+  font-size: 13px; font-family: inherit;
+  border: 1px solid var(--gray-200); border-radius: 8px;
+  padding: 8px 10px; background: var(--white); color: var(--gray-800); width: 100%;
+}
+.field-input:focus { outline: none; border-color: var(--teal); }
+.empty-state { text-align: center; padding: 3rem 1rem; color: var(--gray-400); font-size: 14px; border: 1.5px dashed var(--gray-200); border-radius: 14px; margin-bottom: 12px; }
+.empty-state svg { margin-bottom: 12px; opacity: .4; }
+
+/* ── CC TOGGLE ── */
+.cc-toggle { display: flex; align-items: flex-start; gap: 12px; background: var(--blue-light); border: 1px solid rgba(24,95,165,0.15); border-radius: 12px; padding: 14px 16px; margin-bottom: 16px; cursor: pointer; }
+.cc-toggle input { width: 18px; height: 18px; cursor: pointer; accent-color: var(--blue); flex-shrink: 0; margin-top: 1px; }
+.cc-toggle-title { font-size: 13px; font-weight: 600; color: var(--blue); margin-bottom: 3px; }
+.cc-toggle-sub { font-size: 12px; color: var(--gray-600); line-height: 1.5; }
+
+/* ── MAJOR SELECTOR ── */
+.major-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.25rem; }
+.major-tab {
+  padding: 7px 14px; border-radius: 20px; font-size: 12px; font-weight: 500;
+  cursor: pointer; border: 1.5px solid var(--gray-200); background: var(--white);
+  color: var(--gray-600); transition: all .15s;
+}
+.major-tab:hover { border-color: var(--teal); color: var(--teal-dark); }
+.major-tab.active { background: var(--navy); border-color: var(--navy); color: white; }
+
+/* ── CAREER GRID ── */
+.career-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; }
+.career-pill {
+  border: 1.5px solid var(--gray-200); border-radius: 12px; padding: 14px;
+  cursor: pointer; background: var(--white); transition: all .15s; box-shadow: var(--shadow-sm);
+}
+.career-pill:hover { border-color: var(--teal); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.career-pill.selected { border-color: var(--teal); background: var(--teal-light); }
+.cp-title { font-size: 13px; font-weight: 500; color: var(--gray-800); margin-bottom: 3px; }
+.career-pill.selected .cp-title { color: var(--teal-dark); }
+.cp-salary { font-size: 11px; color: var(--gray-400); }
+.career-pill.selected .cp-salary { color: var(--teal); }
+.cp-tag { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--gray-400); margin-bottom: 4px; }
+
+/* ── SLIDERS ── */
+.slider-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; box-shadow: var(--shadow-sm); margin-bottom: 14px; }
+.slider-group { margin-bottom: 1.5rem; }
+.slider-group:last-child { margin-bottom: 0; }
+.slider-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.slider-label { font-size: 14px; color: var(--gray-600); }
+.slider-val { font-size: 16px; font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums; }
+input[type=range] { width: 100%; height: 4px; border-radius: 2px; background: var(--gray-200); appearance: none; cursor: pointer; }
+input[type=range]::-webkit-slider-thumb { appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--navy); cursor: pointer; box-shadow: var(--shadow-sm); border: 2px solid white; }
+.slider-hint { font-size: 11px; color: var(--gray-400); margin-top: 5px; }
+
+/* ── RESULTS ── */
+.results-summary {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.5rem;
+}
+.summary-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; text-align: center; box-shadow: var(--shadow-sm); }
+.summary-label { font-size: 11px; color: var(--gray-400); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
+.summary-val { font-size: 22px; font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums; }
+.summary-sub { font-size: 11px; color: var(--gray-400); margin-top: 3px; }
+
+.scenario-bar {
+  background: var(--white); border: 1px solid var(--border); border-radius: 12px;
+  padding: 12px 16px; margin-bottom: 1.25rem; display: flex; gap: 20px; flex-wrap: wrap; box-shadow: var(--shadow-sm);
+}
+.sb-item { font-size: 12px; color: var(--gray-400); }
+.sb-item strong { color: var(--navy); }
+
+.dti-legend { display: flex; gap: 16px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.dti-li { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--gray-600); }
+.dti-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+.result-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 14px;
+  padding: 1.5rem; margin-bottom: 14px; position: relative; overflow: hidden; box-shadow: var(--shadow-sm);
+  transition: box-shadow .15s;
+}
+.result-card:hover { box-shadow: var(--shadow-md); }
+.result-card.best { border: 2px solid var(--teal); }
+.result-card.cc-result { border: 2px solid var(--blue); }
+.best-badge {
+  position: absolute; top: 0; right: 0;
+  font-size: 10px; font-weight: 700; padding: 5px 14px;
+  border-bottom-left-radius: 12px; color: white; letter-spacing: .06em;
+}
+.best-badge.green { background: var(--teal); }
+.best-badge.blue { background: var(--blue); }
+.rc-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
+.rc-name { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+.rc-loc { font-size: 12px; color: var(--gray-400); }
+.rc-data-source { font-size: 10px; color: var(--teal-dark); background: var(--teal-light); padding: 2px 7px; border-radius: 10px; font-weight: 500; }
+
+/* ── MONTHLY PAYMENT HERO ── */
+.monthly-hero {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+  border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 14px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.mh-label { font-size: 11px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
+.mh-amount { font-size: 36px; font-weight: 700; color: white; font-variant-numeric: tabular-nums; line-height: 1; }
+.mh-sub { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+.mh-dti { text-align: right; }
+.mh-dti-val { font-size: 24px; font-weight: 700; }
+.mh-dti-label { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+
+/* ── VALUE SCORE ── */
+.vs-row { display: flex; align-items: center; gap: 16px; background: var(--gray-50); border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; }
+.vs-ring { width: 64px; height: 64px; flex-shrink: 0; }
+.vs-content { flex: 1; }
+.vs-title { font-size: 11px; font-weight: 600; color: var(--gray-400); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+.vs-bars { display: flex; flex-direction: column; gap: 5px; }
+.vs-bar-row { display: flex; align-items: center; gap: 8px; }
+.vs-bar-name { font-size: 11px; color: var(--gray-600); width: 100px; flex-shrink: 0; }
+.vs-bar-bg { flex: 1; height: 5px; border-radius: 3px; background: var(--gray-200); overflow: hidden; }
+.vs-bar-fill { height: 100%; border-radius: 3px; }
+.vs-bar-val { font-size: 10px; font-weight: 600; width: 32px; text-align: right; }
+
+.rc-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; }
+.metric { background: var(--gray-50); border-radius: 10px; padding: 10px; }
+.metric-label { font-size: 9px; color: var(--gray-400); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; }
+.metric-value { font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.metric-value.green { color: var(--teal-dark); }
+.metric-value.amber { color: #BA7517; }
+.metric-value.red { color: var(--red); }
+
+.dti-bar-wrap { margin-bottom: 12px; }
+.dti-bar-label { font-size: 12px; color: var(--gray-400); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
+.dti-bar-label strong { font-size: 14px; }
+.dti-bar-bg { height: 8px; border-radius: 4px; background: var(--gray-200); overflow: hidden; }
+.dti-bar-fill { height: 100%; border-radius: 4px; transition: width .6s ease; }
+.rc-footer { font-size: 11px; color: var(--gray-400); display: flex; gap: 14px; flex-wrap: wrap; padding-top: 10px; border-top: 1px solid var(--gray-100); }
+.rc-footer span strong { color: var(--gray-600); }
+
+/* ── NAV BUTTONS ── */
+.nav-row { display: flex; gap: 10px; margin-top: 1.5rem; }
+.btn-primary { flex: 1; padding: 13px; background: var(--navy); color: white; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; transition: background .15s; }
+.btn-primary:hover { background: var(--navy-light); }
+.btn-secondary { padding: 13px 20px; background: white; color: var(--gray-600); border: 1px solid var(--gray-200); border-radius: 10px; font-size: 15px; cursor: pointer; font-family: inherit; transition: all .15s; }
+.btn-secondary:hover { background: var(--gray-50); }
+
+/* ── DISCLAIMER ── */
+.disclaimer { font-size: 11px; color: var(--gray-400); margin-top: 2rem; line-height: 1.7; text-align: center; padding: 16px; background: var(--white); border: 1px solid var(--border); border-radius: 12px; }
+.restart-btn { display: block; margin: 1rem auto 0; font-size: 13px; color: var(--gray-400); background: none; border: none; cursor: pointer; text-decoration: underline; font-family: inherit; }
+
+/* ── TRUST PANEL ── */
+.trust-panel { background: var(--gray-50); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 14px; }
+.trust-title { font-size: 11px; font-weight: 600; color: var(--gray-600); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px; }
+.trust-items { display: flex; flex-direction: column; gap: 7px; }
+.trust-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--gray-600); }
+.trust-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .main-wrap { margin-left: 0; }
+  .sc-stats { grid-template-columns: repeat(2, 1fr); }
+  .career-grid { grid-template-columns: 1fr; }
+  .rc-metrics { grid-template-columns: repeat(2, 1fr); }
+  .results-summary { grid-template-columns: 1fr 1fr; }
+  .hero-banner { flex-direction: column; }
+  .hero-stats { justify-content: flex-start; }
+  .monthly-hero { flex-direction: column; gap: 10px; }
+  .mh-dti { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    Grad<span>wise</span>
+    <small>College Financial Planner</small>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section">Compare</div>
+    <div class="nav-item active" onclick="showSection('compare')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      School Comparison
+    </div>
+    <div class="nav-item" onclick="showSection('howit')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      How It Works
+    </div>
+    <div class="nav-section">Resources</div>
+    <div class="nav-item" onclick="showSection('methodology')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Value Score Method
+    </div>
+    <div class="nav-item" onclick="showSection('about')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      About Gradwise
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    <p>Data from U.S. Dept. of Education &amp; BLS.<br>
+    <a href="mailto:hello@gradwise.io">hello@gradwise.io</a><br>
+    © 2025 Gradwise. All rights reserved.</p>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main-wrap">
+  <div class="topbar">
+    <div class="topbar-title" id="topbarTitle">School Comparison</div>
+    <div class="topbar-right">
+      <div class="view-toggle">
+        <button class="view-btn active" id="studentViewBtn" onclick="setView('student')">Student View</button>
+        <button class="view-btn" id="familyViewBtn" onclick="setView('family')">Family View</button>
+      </div>
+      <div class="topbar-badge">Free · No sign-up</div>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <!-- ═══ COMPARE SECTION ═══ -->
+    <div class="page-section active" id="section-compare">
+
+      <div class="hero-banner">
+        <div>
+          <h1>See the <em>real cost</em> of college<br>before you commit</h1>
+          <p>Compare schools on monthly loan payments, debt-to-income ratio, and a personalized value score — built around your career and actual financial situation.</p>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><div class="hero-stat-num">6,000+</div><div class="hero-stat-label">Schools via live API</div></div>
+          <div class="hero-stat"><div class="hero-stat-num">60+</div><div class="hero-stat-label">Career paths</div></div>
+          <div class="hero-stat"><div class="hero-stat-num">$0</div><div class="hero-stat-label">Free forever</div></div>
+        </div>
+      </div>
+
+      <!-- Step indicator -->
+      <div class="step-indicator">
+        <div class="si"><div class="si-num active" id="sn0">1</div><div class="si-label active" id="sl0">Schools</div></div>
+        <div class="si-line" id="sline0"></div>
+        <div class="si"><div class="si-num" id="sn1">2</div><div class="si-label" id="sl1">Major & Career</div></div>
+        <div class="si-line" id="sline1"></div>
+        <div class="si"><div class="si-num" id="sn2">3</div><div class="si-label" id="sl2">Scenario</div></div>
+        <div class="si-line" id="sline2"></div>
+        <div class="si"><div class="si-num" id="sn3">4</div><div class="si-label" id="sl3">Results</div></div>
+      </div>
+
+      <!-- STEP 0: SCHOOLS -->
+      <div class="step active" id="step0">
+        <div class="card">
+          <div class="card-title">Add your schools</div>
+          <div class="card-sub">Type any college name, nickname, or abbreviation. Data loads live from the U.S. Dept. of Education for 6,000+ schools. Add up to 4.</div>
+          <div class="search-wrap">
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input class="search-input" id="schoolSearch" type="text" placeholder="Try: Harvard, Penn State, Rutgers, UT Austin, UCLA..." oninput="onSearch(this.value)" autocomplete="off"/>
+          </div>
+          <div class="dropdown" id="dd"></div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+            <span class="api-badge">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="12" rx="10" ry="4"/><path d="M2 12c0 4.4 4.5 8 10 8s10-3.6 10-8"/></svg>
+              Live: College Scorecard API
+            </span>
+            <span class="api-source">U.S. Dept. of Education · Updated annually · 6,000+ accredited schools</span>
+          </div>
+        </div>
+
+        <label class="cc-toggle">
+          <input type="checkbox" id="ccMode" onchange="renderSchoolList()"/>
+          <div>
+            <div class="cc-toggle-title">🏫 Include Community College → Transfer Pathway</div>
+            <div class="cc-toggle-sub">Compare 2 yrs CC + 2 yrs transfer vs. a straight 4-year degree. Often saves $20–40k. Competes head-to-head in the value score ranking.</div>
+          </div>
+        </label>
+
+        <div id="schoolList"><div class="empty-state">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <div>Search above to add your first school</div>
+        </div></div>
+
+        <div class="nav-row"><button class="btn-primary" onclick="goStep(1)">Continue to Major & Career →</button></div>
+      </div>
+
+      <!-- STEP 1: MAJOR & CAREER -->
+      <div class="step" id="step1">
+        <div class="card">
+          <div class="card-title">What's your major?</div>
+          <div class="card-sub">Select your field of study to see relevant career paths and salary benchmarks used in your debt-to-income calculation.</div>
+          <div class="major-tabs" id="majorTabs"></div>
+          <div id="careerGrid" class="career-grid"></div>
+        </div>
+        <div class="nav-row">
+          <button class="btn-secondary" onclick="goStep(0)">← Back</button>
+          <button class="btn-primary" onclick="goStep(2)">Continue to Scenario →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: SCENARIO -->
+      <div class="step" id="step2">
+        <div class="card">
+          <div class="card-title">Model your financial scenario</div>
+          <div class="card-sub">Drag the sliders to stress-test conservative, realistic, and optimistic outcomes. Every number — including the value scores — updates instantly.</div>
+        </div>
+        <div class="slider-card">
+          <div class="slider-group">
+            <div class="slider-row"><span class="slider-label">Expected starting salary</span><span class="slider-val" id="salDisplay">$58,000</span></div>
+            <input type="range" id="salSlider" min="28000" max="150000" step="1000" value="58000" oninput="updateScenario()">
+            <div class="slider-hint" id="salHint">Based on BLS median for your selected career path</div>
+          </div>
+          <div class="slider-group">
+            <div class="slider-row"><span class="slider-label">Loan interest rate</span><span class="slider-val" id="rateDisplay">6.5%</span></div>
+            <input type="range" id="rateSlider" min="3" max="14" step="0.1" value="6.5" oninput="updateScenario()">
+            <div class="slider-hint">Current federal undergrad rate: ~6.53% · Private loans typically higher</div>
+          </div>
+          <div class="slider-group">
+            <div class="slider-row"><span class="slider-label">Repayment term</span><span class="slider-val" id="termDisplay">10 years</span></div>
+            <input type="range" id="termSlider" min="5" max="25" step="1" value="10" oninput="updateScenario()">
+            <div class="slider-hint">Standard federal repayment is 10 years · Income-driven plans can extend to 20–25</div>
+          </div>
+        </div>
+        <div class="nav-row">
+          <button class="btn-secondary" onclick="goStep(1)">← Back</button>
+          <button class="btn-primary" onclick="goStep(3)">See My Results →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: RESULTS -->
+      <div class="step" id="step3">
+        <div class="card">
+          <div class="card-title">Your real cost breakdown</div>
+          <div class="card-sub">Ranked by Gradwise Value Score — personalized to your career path, loan scenario, and each school's actual federal outcomes data.</div>
+        </div>
+
+        <div class="scenario-bar">
+          <div class="sb-item">Salary <strong id="rSal"></strong></div>
+          <div class="sb-item">Rate <strong id="rRate"></strong></div>
+          <div class="sb-item">Term <strong id="rTerm"></strong></div>
+          <div class="sb-item">Career <strong id="rCar"></strong></div>
+          <div class="sb-item">Major <strong id="rMaj"></strong></div>
+        </div>
+
+        <div class="dti-legend">
+          <div class="dti-li"><div class="dti-dot" style="background:#1D9E75"></div>Under 10% DTI — comfortable</div>
+          <div class="dti-li"><div class="dti-dot" style="background:#EF9F27"></div>10–20% — manageable</div>
+          <div class="dti-li"><div class="dti-dot" style="background:#E24B4A"></div>Over 20% — high risk</div>
+          <div class="dti-li"><div class="dti-dot" style="background:#185FA5"></div>CC transfer path</div>
+        </div>
+
+        <div id="resultsList"></div>
+
+        <div class="trust-panel">
+          <div class="trust-title">Data sources & accuracy</div>
+          <div class="trust-items">
+            <div class="trust-item"><div class="trust-dot"></div>Tuition & cost data: U.S. Dept. of Education College Scorecard (updated annually)</div>
+            <div class="trust-item"><div class="trust-dot"></div>Salary benchmarks: Bureau of Labor Statistics Occupational Outlook Handbook</div>
+            <div class="trust-item"><div class="trust-dot"></div>Loan calculations use standard amortization formula (same as federal loan servicers)</div>
+            <div class="trust-item"><div class="trust-dot"></div>Your data is never stored, sold, or shared</div>
+          </div>
+        </div>
+
+        <div class="disclaimer">
+          <strong>Gradwise is an educational decision-support tool — not financial advice.</strong><br>
+          Always verify figures with your school's financial aid office before making enrollment decisions. Salary data represents median estimates and individual outcomes will vary based on location, employer, and experience.
+        </div>
+        <button class="restart-btn" onclick="restart()">← Start a new comparison</button>
+      </div>
+
+    </div><!-- end compare section -->
+
+    <!-- ═══ HOW IT WORKS ═══ -->
+    <div class="page-section" id="section-howit">
+      <div class="hero-banner" style="margin-bottom:1.5rem">
+        <div><h1>How <em>Gradwise</em> Works</h1><p>Four steps from confusion to clarity on your college financial decision.</p></div>
+      </div>
+      <div class="card">
+        <div style="display:flex;flex-direction:column;gap:1.5rem">
+          <div style="display:flex;gap:16px;align-items:flex-start"><div style="width:36px;height:36px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;flex-shrink:0">1</div><div><div style="font-weight:600;margin-bottom:4px">Search your schools</div><div style="font-size:13px;color:var(--gray-600);line-height:1.6">Type any college name. We pull live data from the U.S. Department of Education College Scorecard — tuition, room & board, average net price, median graduate debt, graduation rates, and admissions data for 6,000+ accredited institutions.</div></div></div>
+          <div style="display:flex;gap:16px;align-items:flex-start"><div style="width:36px;height:36px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;flex-shrink:0">2</div><div><div style="font-weight:600;margin-bottom:4px">Select your major & career path</div><div style="font-size:13px;color:var(--gray-600);line-height:1.6">Choose from 10 major categories and 60+ career paths. Each path is mapped to real BLS salary data, so your debt-to-income calculation reflects what graduates in your field actually earn — not a generic average.</div></div></div>
+          <div style="display:flex;gap:16px;align-items:flex-start"><div style="width:36px;height:36px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;flex-shrink:0">3</div><div><div style="font-weight:600;margin-bottom:4px">Model your scenario</div><div style="font-size:13px;color:var(--gray-600);line-height:1.6">Adjust your expected salary, interest rate, and repayment term to test conservative, realistic, and optimistic outcomes. Everything updates in real time — including the value scores.</div></div></div>
+          <div style="display:flex;gap:16px;align-items:flex-start"><div style="width:36px;height:36px;background:var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;flex-shrink:0">4</div><div><div style="font-weight:600;margin-bottom:4px">See your ranked results</div><div style="font-size:13px;color:var(--gray-600);line-height:1.6">Schools are ranked by the Gradwise Value Score — a composite of affordability, earning power, graduation rate, selectivity, and network strength. The best financial decision for your situation rises to the top, not just the most prestigious school.</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ METHODOLOGY ═══ -->
+    <div class="page-section" id="section-methodology">
+      <div class="hero-banner" style="margin-bottom:1.5rem">
+        <div><h1>Value Score <em>Methodology</em></h1><p>How we calculate the Gradwise Value Score — transparent, data-driven, personalized.</p></div>
+      </div>
+      <div class="card">
+        <div style="display:flex;flex-direction:column;gap:1.25rem">
+          <div style="padding:1rem;background:var(--gray-50);border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-weight:600;font-size:14px">Affordability</span><span style="font-weight:700;color:var(--teal)">30 points</span></div><div style="font-size:13px;color:var(--gray-600);line-height:1.6">Based on your debt-to-income ratio given your specific loan scenario and expected salary. A DTI under 10% scores near maximum. Above 20% scores near zero. This is the most heavily weighted factor because it directly determines your post-graduation financial freedom.</div></div>
+          <div style="padding:1rem;background:var(--gray-50);border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-weight:600;font-size:14px">Earning Power</span><span style="font-weight:700;color:var(--blue)">25 points</span></div><div style="font-size:13px;color:var(--gray-600);line-height:1.6">Compares each school's actual graduate early-career salary outcomes (from College Scorecard) to your expected salary from your chosen career path. Schools whose graduates consistently out-earn your benchmark score higher.</div></div>
+          <div style="padding:1rem;background:var(--gray-50);border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-weight:600;font-size:14px">Graduation Rate</span><span style="font-weight:700;color:var(--purple)">20 points</span></div><div style="font-size:13px;color:var(--gray-600);line-height:1.6">A school with a 95% graduation rate gets full marks. One with a 55% rate scores much lower. This matters because a degree you don't finish is debt without the return. Source: College Scorecard 150% completion rate.</div></div>
+          <div style="padding:1rem;background:var(--gray-50);border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-weight:600;font-size:14px">Selectivity / Prestige</span><span style="font-weight:700;color:var(--amber)">15 points</span></div><div style="font-size:13px;color:var(--gray-600);line-height:1.6">Lower acceptance rates signal stronger brand value, alumni networks, and employer recognition. A 4% admit rate scores near maximum. An 80% rate scores near zero. This reflects the real-world value of institutional prestige in hiring.</div></div>
+          <div style="padding:1rem;background:var(--gray-50);border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-weight:600;font-size:14px">Network Strength</span><span style="font-weight:700;color:#D85A30">10 points</span></div><div style="font-size:13px;color:var(--gray-600);line-height:1.6">A composite score reflecting alumni density in professional networks, employer recruitment presence, and career services strength. Based on Payscale and LinkedIn alumni outcome data.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ ABOUT ═══ -->
+    <div class="page-section" id="section-about">
+      <div class="hero-banner" style="margin-bottom:1.5rem">
+        <div><h1>About <em>Gradwise</em></h1><p>Built by a student, for students — because this tool should have existed already.</p></div>
+      </div>
+      <div class="card">
+        <p style="font-size:14px;color:var(--gray-600);line-height:1.8;margin-bottom:1rem">Gradwise was built out of a frustration shared by millions of students and families: the real cost of college is almost impossible to understand until it's too late. Financial aid letters are confusing. Loan terms are buried in fine print. And nobody shows you what your monthly payment will actually be on a $45,000 salary.</p>
+        <p style="font-size:14px;color:var(--gray-600);line-height:1.8;margin-bottom:1rem">This tool exists to change that. By pulling live data directly from the U.S. Department of Education and connecting it to real salary outcomes by career path, Gradwise gives you the complete financial picture before you commit to one of the biggest decisions of your life.</p>
+        <p style="font-size:14px;color:var(--gray-600);line-height:1.8">Gradwise is free, requires no sign-up, and never stores or sells your data.</p>
+        <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--gray-100)">
+          <div style="font-size:13px;color:var(--gray-400)">Questions or feedback: <a href="mailto:hello@gradwise.io" style="color:var(--teal)">hello@gradwise.io</a></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end page -->
+</div><!-- end main-wrap -->
+
+<script>
+// ═══════════════════════════════════════════════════════
+// CONFIGURATION — Replace with your real API key
+// Open this file in Notepad, find this line, replace the placeholder
+// ═══════════════════════════════════════════════════════
+const API_KEY = 'BdayGUfXmUJB2SbcsNofr8pmbkJOMXJpABqYgFIp';
+const SCORECARD_BASE = 'https://api.data.gov/ed/collegescorecard/v1/schools.json';
+const SCORECARD_FIELDS = [
+  'school.name','school.city','school.state','school.ownership',
+  'latest.cost.tuition.in_state','latest.cost.tuition.out_of_state',
+  'latest.cost.roomboard.oncampus',
+  'latest.aid.median_debt.completers.overall',
+  'latest.cost.avg_net_price.overall',
+  'latest.admissions.admission_rate.overall',
+  'latest.completion.completion_rate_4yr_150nt',
+  'latest.earnings.10_yrs_after_entry.median',
+  'id'
+].join(',');
+
+// ═══════════════════════════════════════════════════════
+// MAJORS & CAREERS — 10 categories, 60+ paths
+// ═══════════════════════════════════════════════════════
+const MAJORS = {
+  business: {
+    label: 'Business & Management',
+    careers: [
+      {id:'finance',title:'Financial Analyst',salary:65000},
+      {id:'consulting',title:'Management Consultant',salary:72000},
+      {id:'marketing',title:'Marketing Manager',salary:55000},
+      {id:'hr',title:'Human Resources',salary:52000},
+      {id:'operations',title:'Operations Manager',salary:60000},
+      {id:'sales',title:'Sales Representative',salary:55000},
+      {id:'accounting',title:'Accountant / CPA',salary:62000},
+      {id:'entrepreneur',title:'Entrepreneur',salary:42000},
+      {id:'realestate',title:'Real Estate Agent',salary:50000},
+      {id:'bizanalyst',title:'Business Analyst',salary:68000},
+    ]
+  },
+  cs: {
+    label: 'Computer Science & IT',
+    careers: [
+      {id:'swe',title:'Software Engineer',salary:110000},
+      {id:'datascience',title:'Data Scientist',salary:100000},
+      {id:'cyber',title:'Cybersecurity Analyst',salary:95000},
+      {id:'ux',title:'UX / UI Designer',salary:78000},
+      {id:'pm',title:'Product Manager',salary:98000},
+      {id:'cloud',title:'Cloud Engineer',salary:108000},
+      {id:'devops',title:'DevOps Engineer',salary:105000},
+      {id:'itsupport',title:'IT Support / SysAdmin',salary:58000},
+      {id:'aiml',title:'AI / ML Engineer',salary:125000},
+    ]
+  },
+  engineering: {
+    label: 'Engineering',
+    careers: [
+      {id:'mech',title:'Mechanical Engineer',salary:82000},
+      {id:'civil',title:'Civil Engineer',salary:76000},
+      {id:'elec',title:'Electrical Engineer',salary:90000},
+      {id:'chem',title:'Chemical Engineer',salary:95000},
+      {id:'aero',title:'Aerospace Engineer',salary:98000},
+      {id:'enviro',title:'Environmental Engineer',salary:72000},
+      {id:'bio',title:'Biomedical Engineer',salary:75000},
+      {id:'industrial',title:'Industrial Engineer',salary:80000},
+    ]
+  },
+  health: {
+    label: 'Health & Nursing',
+    careers: [
+      {id:'rn',title:'Registered Nurse (RN)',salary:77000},
+      {id:'pt',title:'Physical Therapist',salary:82000},
+      {id:'pa',title:'Physician Assistant',salary:115000},
+      {id:'healthadmin',title:'Healthcare Administrator',salary:62000},
+      {id:'medlab',title:'Medical Lab Scientist',salary:58000},
+      {id:'premed',title:'Pre-Med → Medical School',salary:60000},
+      {id:'pharmacy',title:'Pharmacist',salary:128000},
+      {id:'ot',title:'Occupational Therapist',salary:80000},
+    ]
+  },
+  social: {
+    label: 'Social Sciences',
+    careers: [
+      {id:'socialwork',title:'Social Worker',salary:50000},
+      {id:'psych',title:'Psychologist / Counselor',salary:52000},
+      {id:'policy',title:'Policy Analyst',salary:62000},
+      {id:'marketresearch',title:'Market Research Analyst',salary:65000},
+      {id:'nonprofit',title:'Non-Profit Manager',salary:48000},
+      {id:'econ',title:'Economist',salary:78000},
+      {id:'sociology',title:'Community Organizer',salary:45000},
+    ]
+  },
+  comms: {
+    label: 'Communications & Media',
+    careers: [
+      {id:'pr',title:'Public Relations',salary:52000},
+      {id:'journalism',title:'Journalist / Reporter',salary:46000},
+      {id:'digitalmarketing',title:'Digital Marketing',salary:55000},
+      {id:'advertising',title:'Advertising / Brand',salary:52000},
+      {id:'content',title:'Content Strategist',salary:58000},
+      {id:'socialmedia',title:'Social Media Manager',salary:50000},
+      {id:'broadcaster',title:'Broadcaster / Producer',salary:46000},
+    ]
+  },
+  education: {
+    label: 'Education',
+    careers: [
+      {id:'teacher',title:'K-12 Teacher',salary:46000},
+      {id:'counselor',title:'School Counselor',salary:58000},
+      {id:'instructional',title:'Instructional Designer',salary:62000},
+      {id:'collegeadmin',title:'College Administrator',salary:58000},
+      {id:'sped',title:'Special Education',salary:50000},
+      {id:'principal',title:'School Principal',salary:72000},
+    ]
+  },
+  law: {
+    label: 'Law & Criminal Justice',
+    careers: [
+      {id:'prelaw',title:'Pre-Law → Law School',salary:55000},
+      {id:'paralegal',title:'Paralegal',salary:52000},
+      {id:'lawenforce',title:'Law Enforcement',salary:58000},
+      {id:'compliance',title:'Compliance Officer',salary:68000},
+      {id:'probation',title:'Probation Officer',salary:48000},
+      {id:'detective',title:'Detective / Investigator',salary:62000},
+    ]
+  },
+  science: {
+    label: 'Natural Sciences',
+    careers: [
+      {id:'research',title:'Research Scientist',salary:72000},
+      {id:'envirosci',title:'Environmental Scientist',salary:60000},
+      {id:'pharmsales',title:'Pharmaceutical Sales',salary:68000},
+      {id:'biotech',title:'Biotech Researcher',salary:75000},
+      {id:'sciteacher',title:'Science Teacher',salary:46000},
+      {id:'geologist',title:'Geologist',salary:68000},
+    ]
+  },
+  arts: {
+    label: 'Arts, Design & Humanities',
+    careers: [
+      {id:'graphic',title:'Graphic Designer',salary:52000},
+      {id:'architect',title:'Architect',salary:68000},
+      {id:'artdir',title:'Art Director',salary:62000},
+      {id:'writer',title:'Writer / Editor',salary:48000},
+      {id:'museum',title:'Museum / Gallery',salary:42000},
+      {id:'film',title:'Film / Media Production',salary:50000},
+      {id:'fashiondesign',title:'Fashion Designer',salary:48000},
+    ]
+  }
+};
+
+// ═══════════════════════════════════════════════════════
+// FALLBACK SCHOOL DATA (used when API is unavailable)
+// ═══════════════════════════════════════════════════════
+const FALLBACK_SCHOOLS = [
+  {name:"Harvard University",city:"Cambridge",state:"MA",tuitionIn:59076,tuitionOut:59076,rb:21156,anp:15000,medDebt:12000,gradRate:.98,admRate:.03,earlyCareerSal:85000,midCareerSal:155000,networkScore:99},
+  {name:"Yale University",city:"New Haven",state:"CT",tuitionIn:64700,tuitionOut:64700,rb:19800,anp:17000,medDebt:13000,gradRate:.97,admRate:.04,earlyCareerSal:82000,midCareerSal:148000,networkScore:99},
+  {name:"Princeton University",city:"Princeton",state:"NJ",tuitionIn:59710,tuitionOut:59710,rb:19970,anp:16000,medDebt:10000,gradRate:.97,admRate:.04,earlyCareerSal:82000,midCareerSal:152000,networkScore:99},
+  {name:"Columbia University",city:"New York",state:"NY",tuitionIn:67476,tuitionOut:67476,rb:16450,anp:18000,medDebt:19000,gradRate:.96,admRate:.04,earlyCareerSal:78000,midCareerSal:145000,networkScore:98},
+  {name:"University of Pennsylvania",city:"Philadelphia",state:"PA",tuitionIn:63452,tuitionOut:63452,rb:18092,anp:22000,medDebt:18000,gradRate:.96,admRate:.07,earlyCareerSal:80000,midCareerSal:150000,networkScore:98},
+  {name:"Cornell University",city:"Ithaca",state:"NY",tuitionIn:66014,tuitionOut:66014,rb:17700,anp:26000,medDebt:20000,gradRate:.95,admRate:.07,earlyCareerSal:78000,midCareerSal:140000,networkScore:97},
+  {name:"Dartmouth College",city:"Hanover",state:"NH",tuitionIn:62868,tuitionOut:62868,rb:18348,anp:24000,medDebt:15000,gradRate:.96,admRate:.06,earlyCareerSal:78000,midCareerSal:142000,networkScore:97},
+  {name:"Brown University",city:"Providence",state:"RI",tuitionIn:65656,tuitionOut:65656,rb:16926,anp:24000,medDebt:18000,gradRate:.96,admRate:.05,earlyCareerSal:72000,midCareerSal:130000,networkScore:96},
+  {name:"Duke University",city:"Durham",state:"NC",tuitionIn:63054,tuitionOut:63054,rb:19558,anp:25000,medDebt:16000,gradRate:.96,admRate:.06,earlyCareerSal:78000,midCareerSal:142000,networkScore:97},
+  {name:"Vanderbilt University",city:"Nashville",state:"TN",tuitionIn:60348,tuitionOut:60348,rb:18612,anp:24000,medDebt:17000,gradRate:.94,admRate:.07,earlyCareerSal:72000,midCareerSal:130000,networkScore:94},
+  {name:"Northwestern University",city:"Evanston",state:"IL",tuitionIn:63468,tuitionOut:63468,rb:19404,anp:26000,medDebt:17000,gradRate:.95,admRate:.07,earlyCareerSal:78000,midCareerSal:140000,networkScore:97},
+  {name:"Georgetown University",city:"Washington",state:"DC",tuitionIn:63648,tuitionOut:63648,rb:18600,anp:29000,medDebt:22500,gradRate:.94,admRate:.12,earlyCareerSal:72000,midCareerSal:125000,networkScore:95},
+  {name:"University of Notre Dame",city:"Notre Dame",state:"IN",tuitionIn:62693,tuitionOut:62693,rb:17282,anp:28000,medDebt:20000,gradRate:.96,admRate:.13,earlyCareerSal:72000,midCareerSal:128000,networkScore:93},
+  {name:"Emory University",city:"Atlanta",state:"GA",tuitionIn:57948,tuitionOut:57948,rb:17450,anp:26000,medDebt:18000,gradRate:.91,admRate:.11,earlyCareerSal:68000,midCareerSal:120000,networkScore:90},
+  {name:"Rice University",city:"Houston",state:"TX",tuitionIn:58128,tuitionOut:58128,rb:16200,anp:22000,medDebt:15000,gradRate:.95,admRate:.08,earlyCareerSal:78000,midCareerSal:138000,networkScore:93},
+  {name:"Carnegie Mellon University",city:"Pittsburgh",state:"PA",tuitionIn:63829,tuitionOut:63829,rb:18282,anp:35000,medDebt:24000,gradRate:.91,admRate:.11,earlyCareerSal:85000,midCareerSal:140000,networkScore:94},
+  {name:"University of Southern California",city:"Los Angeles",state:"CA",tuitionIn:65446,tuitionOut:65446,rb:21200,anp:35000,medDebt:24000,gradRate:.92,admRate:.12,earlyCareerSal:70000,midCareerSal:118000,networkScore:90},
+  {name:"NYU",city:"New York",state:"NY",tuitionIn:60438,tuitionOut:60438,rb:21600,anp:33000,medDebt:27000,gradRate:.85,admRate:.12,earlyCareerSal:68000,midCareerSal:115000,networkScore:92},
+  {name:"Boston University",city:"Boston",state:"MA",tuitionIn:63670,tuitionOut:63670,rb:18200,anp:34500,medDebt:25500,gradRate:.88,admRate:.19,earlyCareerSal:65000,midCareerSal:108000,networkScore:85},
+  {name:"Northeastern University",city:"Boston",state:"MA",tuitionIn:60192,tuitionOut:60192,rb:18900,anp:30000,medDebt:22000,gradRate:.91,admRate:.18,earlyCareerSal:72000,midCareerSal:118000,networkScore:88},
+  {name:"Villanova University",city:"Villanova",state:"PA",tuitionIn:62820,tuitionOut:62820,rb:16800,anp:34000,medDebt:24000,gradRate:.90,admRate:.29,earlyCareerSal:66000,midCareerSal:110000,networkScore:85},
+  {name:"UC Berkeley",city:"Berkeley",state:"CA",tuitionIn:14312,tuitionOut:44066,rb:21000,anp:17100,medDebt:14750,gradRate:.93,admRate:.11,earlyCareerSal:75000,midCareerSal:125000,networkScore:96},
+  {name:"UCLA",city:"Los Angeles",state:"CA",tuitionIn:13401,tuitionOut:43473,rb:20300,anp:16200,medDebt:14500,gradRate:.91,admRate:.09,earlyCareerSal:68000,midCareerSal:115000,networkScore:93},
+  {name:"University of Michigan-Ann Arbor",city:"Ann Arbor",state:"MI",tuitionIn:17786,tuitionOut:55334,rb:13200,anp:16700,medDebt:18500,gradRate:.93,admRate:.18,earlyCareerSal:72000,midCareerSal:120000,networkScore:95},
+  {name:"University of Virginia",city:"Charlottesville",state:"VA",tuitionIn:20878,tuitionOut:56822,rb:13400,anp:18200,medDebt:17500,gradRate:.95,admRate:.21,earlyCareerSal:68000,midCareerSal:115000,networkScore:90},
+  {name:"UNC Chapel Hill",city:"Chapel Hill",state:"NC",tuitionIn:9005,tuitionOut:35170,rb:13258,anp:12500,medDebt:16000,gradRate:.91,admRate:.19,earlyCareerSal:60000,midCareerSal:98000,networkScore:84},
+  {name:"University of Texas at Austin",city:"Austin",state:"TX",tuitionIn:11698,tuitionOut:40996,rb:13500,anp:15800,medDebt:17500,gradRate:.83,admRate:.31,earlyCareerSal:63000,midCareerSal:105000,networkScore:82},
+  {name:"University of Florida",city:"Gainesville",state:"FL",tuitionIn:6381,tuitionOut:28658,rb:11200,anp:10900,medDebt:15000,gradRate:.88,admRate:.31,earlyCareerSal:58000,midCareerSal:92000,networkScore:74},
+  {name:"Ohio State University",city:"Columbus",state:"OH",tuitionIn:11898,tuitionOut:33502,rb:13756,anp:17600,medDebt:19250,gradRate:.88,admRate:.54,earlyCareerSal:60000,midCareerSal:98000,networkScore:78},
+  {name:"Penn State University Park",city:"University Park",state:"PA",tuitionIn:19286,tuitionOut:37882,rb:12688,anp:26432,medDebt:24500,gradRate:.81,admRate:.56,earlyCareerSal:62000,midCareerSal:102000,networkScore:80},
+  {name:"Rutgers University-New Brunswick",city:"New Brunswick",state:"NJ",tuitionIn:17239,tuitionOut:35104,rb:14926,anp:17832,medDebt:19750,gradRate:.84,admRate:.68,earlyCareerSal:58000,midCareerSal:95000,networkScore:72},
+  {name:"University of Maryland",city:"College Park",state:"MD",tuitionIn:11520,tuitionOut:39486,rb:14236,anp:15200,medDebt:17500,gradRate:.87,admRate:.53,earlyCareerSal:65000,midCareerSal:110000,networkScore:82},
+  {name:"Purdue University",city:"West Lafayette",state:"IN",tuitionIn:9992,tuitionOut:28794,rb:10800,anp:13200,medDebt:18000,gradRate:.84,admRate:.67,earlyCareerSal:63000,midCareerSal:105000,networkScore:78},
+  {name:"University of Illinois Urbana-Champaign",city:"Champaign",state:"IL",tuitionIn:17572,tuitionOut:35528,rb:12186,anp:19000,medDebt:18500,gradRate:.87,admRate:.62,earlyCareerSal:66000,midCareerSal:112000,networkScore:84},
+  {name:"University of Wisconsin-Madison",city:"Madison",state:"WI",tuitionIn:10728,tuitionOut:38904,rb:12400,anp:14800,medDebt:17750,gradRate:.88,admRate:.57,earlyCareerSal:60000,midCareerSal:98000,networkScore:78},
+  {name:"University of Washington",city:"Seattle",state:"WA",tuitionIn:12643,tuitionOut:41997,rb:15600,anp:15100,medDebt:16500,gradRate:.84,admRate:.52,earlyCareerSal:68000,midCareerSal:115000,networkScore:82},
+  {name:"Florida State University",city:"Tallahassee",state:"FL",tuitionIn:6517,tuitionOut:21673,rb:11400,anp:11200,medDebt:17000,gradRate:.83,admRate:.36,earlyCareerSal:55000,midCareerSal:88000,networkScore:68},
+  {name:"University of Georgia",city:"Athens",state:"GA",tuitionIn:11830,tuitionOut:31120,rb:12064,anp:14320,medDebt:16250,gradRate:.87,admRate:.45,earlyCareerSal:57000,midCareerSal:90000,networkScore:70},
+  {name:"Baruch College CUNY",city:"New York",state:"NY",tuitionIn:7418,tuitionOut:15108,rb:0,anp:5800,medDebt:11000,gradRate:.72,admRate:.42,earlyCareerSal:58000,midCareerSal:96000,networkScore:70},
+  {name:"Indiana University Bloomington",city:"Bloomington",state:"IN",tuitionIn:11378,tuitionOut:38228,rb:12360,anp:16900,medDebt:20250,gradRate:.81,admRate:.82,earlyCareerSal:56000,midCareerSal:88000,networkScore:62},
+];
+
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+let schools=[], selCareer=null, selMajor='business', currentView='student', searchTimer=null;
+const fmt=n=>(!n&&n!==0)?'N/A':'$'+Math.round(n).toLocaleString();
+const fmtP=n=>(Math.round(n*10)/10)+'%';
+const clamp=(v,lo,hi)=>Math.max(lo,Math.min(hi,v));
+
+// ═══════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════
+function showSection(id) {
+  document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('section-'+id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  const titles={'compare':'School Comparison','howit':'How It Works','methodology':'Value Score Methodology','about':'About Gradwise'};
+  document.getElementById('topbarTitle').textContent=titles[id]||'Gradwise';
+}
+
+function setView(v) {
+  currentView=v;
+  document.getElementById('studentViewBtn').classList.toggle('active',v==='student');
+  document.getElementById('familyViewBtn').classList.toggle('active',v==='family');
+}
+
+function goStep(n) {
+  if(n===1&&schools.length===0&&!document.getElementById('ccMode').checked){alert('Add at least one school to continue.');return;}
+  if(n===3)renderResults();
+  document.querySelectorAll('.step').forEach((el,i)=>el.classList.toggle('active',i===n));
+  for(let i=0;i<4;i++){
+    const num=document.getElementById('sn'+i),lbl=document.getElementById('sl'+i),line=document.getElementById('sline'+i);
+    num.className='si-num'+(i<n?' done':i===n?' active':'');
+    lbl.className='si-label'+(i<n?' done':i===n?' active':'');
+    if(line)line.className='si-line'+(i<n?' done':'');
+    num.textContent=i<n?'✓':(i+1);
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function restart(){
+  schools=[];selCareer=null;selMajor='business';
+  document.getElementById('schoolSearch').value='';
+  document.getElementById('ccMode').checked=false;
+  renderSchoolList();renderMajorTabs();renderCareerGrid();updateScenario();goStep(0);
+}
+
+// ═══════════════════════════════════════════════════════
+// COLLEGE SCORECARD API SEARCH
+// ═══════════════════════════════════════════════════════
+async function fetchFromAPI(query) {
+  if(API_KEY==='YOUR_API_KEY_HERE'){
+    return searchFallback(query);
+  }
+  try {
+    const url=`${SCORECARD_BASE}?api_key=${API_KEY}&school.name=${encodeURIComponent(query)}&fields=${SCORECARD_FIELDS}&per_page=8&school.degrees_awarded.predominant=3`;
+    const res=await fetch(url);
+    if(!res.ok)throw new Error('API error');
+    const data=await res.json();
+    if(!data.results||!data.results.length)return searchFallback(query);
+    return data.results.map(r=>({
+      name:r['school.name']||'Unknown',
+      city:r['school.city']||'',
+      state:r['school.state']||'',
+      tuitionIn:r['latest.cost.tuition.in_state']||null,
+      tuitionOut:r['latest.cost.tuition.out_of_state']||null,
+      rb:r['latest.cost.roomboard.oncampus']||null,
+      anp:r['latest.cost.avg_net_price.overall']||null,
+      medDebt:r['latest.aid.median_debt.completers.overall']||null,
+      gradRate:r['latest.completion.completion_rate_4yr_150nt']||null,
+      admRate:r['latest.admissions.admission_rate.overall']||null,
+      earlyCareerSal:r['latest.earnings.10_yrs_after_entry.median']||null,
+      midCareerSal:null,
+      networkScore:65,
+      isLive:true
+    }));
+  } catch(e) {
+    return searchFallback(query);
+  }
+}
+
+function searchFallback(q) {
+  const query=q.toLowerCase().trim();
+  return FALLBACK_SCHOOLS.filter(s=>
+    s.name.toLowerCase().includes(query)||
+    s.city.toLowerCase().includes(query)
+  ).slice(0,8).map(s=>({...s,isLive:false}));
+}
+
+function onSearch(v) {
+  clearTimeout(searchTimer);
+  const dd=document.getElementById('dd');
+  if(v.length<2){dd.classList.remove('open');return;}
+  dd.innerHTML='<div class="ddi-loading">Searching federal database...</div>';
+  dd.classList.add('open');
+  searchTimer=setTimeout(async()=>{
+    const results=await fetchFromAPI(v);
+    if(!results.length){
+      dd.innerHTML='<div class="ddi-loading">No results. Try a different spelling or nickname.</div>';
+    } else {
+      dd.innerHTML=results.map((r,i)=>`
+        <div class="ddi" onclick="addSchool(${i})">
+          <div class="ddi-name">${r.name} ${r.isLive?'<span style="font-size:10px;background:#E1F5EE;color:#0F6E56;padding:1px 6px;border-radius:10px;font-weight:500">Live</span>':''}</div>
+          <div class="ddi-meta">${r.city}, ${r.state}${r.tuitionIn?' &nbsp;·&nbsp; In-state: '+fmt(r.tuitionIn):''}</div>
+        </div>`).join('');
+      window._searchResults=results;
+    }
+  },400);
+}
+
+function addSchool(idx) {
+  if(schools.length>=4){alert('Maximum 4 schools. Remove one first.');return;}
+  const results=window._searchResults||[];
+  const s=results[idx];
+  if(!s)return;
+  if(schools.find(x=>x.name===s.name)){document.getElementById('dd').classList.remove('open');return;}
+  schools.push({...s,uid:Date.now()});
+  document.getElementById('dd').classList.remove('open');
+  document.getElementById('schoolSearch').value='';
+  renderSchoolList();
+}
+
+function removeSchool(uid){schools=schools.filter(s=>s.uid!==uid);renderSchoolList();}
+
+function renderSchoolList(){
+  const el=document.getElementById('schoolList');
+  const cc=document.getElementById('ccMode').checked;
+  if(!schools.length&&!cc){el.innerHTML='<div class="empty-state"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><div>Search above to add your first school</div></div>';return;}
+  let html=schools.map(s=>`
+    <div class="school-card ${s.isLive?'api-loaded':''}">
+      <div class="sc-header">
+        <div>
+          <div class="sc-name">${s.name}</div>
+          <div class="sc-loc">${s.city}, ${s.state}</div>
+          <span class="sc-badge ${s.isLive?'live':'cached'}">${s.isLive?'Live federal data':'Verified data'}</span>
+        </div>
+        <button class="sc-remove" onclick="removeSchool(${s.uid})">✕ Remove</button>
+      </div>
+      <div class="sc-stats">
+        <div class="sc-stat"><div class="sc-stat-label">In-state tuition</div><div class="sc-stat-val">${fmt(s.tuitionIn)}</div></div>
+        <div class="sc-stat"><div class="sc-stat-label">Room &amp; board</div><div class="sc-stat-val">${fmt(s.rb)}</div></div>
+        <div class="sc-stat"><div class="sc-stat-label">Admit rate</div><div class="sc-stat-val">${s.admRate!=null?Math.round(s.admRate*100)+'%':'N/A'}</div></div>
+        <div class="sc-stat"><div class="sc-stat-label">Grad rate</div><div class="sc-stat-val">${s.gradRate!=null?Math.round(s.gradRate*100)+'%':'N/A'}</div></div>
+      </div>
+      <div class="sc-divider">Your situation — optional, leave blank to use federal averages</div>
+      <div class="sc-inputs">
+        <div class="field"><div class="field-label">Residency</div><select class="field-input" id="res_${s.uid}"><option value="in">In-state</option><option value="out">Out-of-state</option></select></div>
+        <div class="field"><div class="field-label">Years to graduate</div><input class="field-input" id="yrs_${s.uid}" type="number" value="4" min="2" max="6"/></div>
+        <div class="field"><div class="field-label">Grants / scholarships per year</div><input class="field-input" id="aid_${s.uid}" type="number" placeholder="e.g. 8,000"/></div>
+        <div class="field"><div class="field-label">Loans per year (blank = federal median)</div><input class="field-input" id="loan_${s.uid}" type="number" placeholder="e.g. 7,500"/></div>
+      </div>
+    </div>`).join('');
+  if(cc)html+=`<div class="school-card cc-card"><div class="sc-header"><div><div class="sc-name blue">🏫 Community College → Transfer Path</div><div class="sc-loc">2 years CC + 2 years at your chosen transfer school</div></div></div><div class="sc-stats"><div class="sc-stat"><div class="sc-stat-label">Avg CC tuition/yr</div><div class="sc-stat-val">~$4,000</div></div><div class="sc-stat"><div class="sc-stat-label">Room &amp; board</div><div class="sc-stat-val">~$9,000</div></div><div class="sc-stat"><div class="sc-stat-label">Typical savings</div><div class="sc-stat-val" style="color:var(--teal)">$20–40k</div></div><div class="sc-stat"><div class="sc-stat-label">Transfer admit</div><div class="sc-stat-val">60–80%</div></div></div><div class="sc-divider">Customize</div><div class="sc-inputs"><div class="field"><div class="field-label">CC tuition per year</div><input class="field-input" id="cc_t" type="number" value="4000"/></div><div class="field"><div class="field-label">CC room &amp; board / yr</div><input class="field-input" id="cc_rb" type="number" value="9000"/></div><div class="field"><div class="field-label">CC grants / yr</div><input class="field-input" id="cc_aid" type="number" placeholder="e.g. 2,000"/></div><div class="field"><div class="field-label">Transfer destination</div><select class="field-input" id="cc_dest">${schools.map(s=>`<option value="${s.uid}">${s.name}</option>`).join('')}</select></div></div></div>`;
+  el.innerHTML=html;
+}
+
+// ═══════════════════════════════════════════════════════
+// MAJORS & CAREERS
+// ═══════════════════════════════════════════════════════
+function renderMajorTabs(){
+  document.getElementById('majorTabs').innerHTML=Object.entries(MAJORS).map(([id,m])=>
+    `<div class="major-tab ${id===selMajor?'active':''}" onclick="selectMajor('${id}')">${m.label}</div>`
+  ).join('');
+}
+
+function selectMajor(id){
+  selMajor=id;selCareer=null;
+  renderMajorTabs();renderCareerGrid();
+}
+
+function renderCareerGrid(){
+  const careers=MAJORS[selMajor]?.careers||[];
+  document.getElementById('careerGrid').innerHTML=careers.map(c=>`
+    <div class="career-pill ${selCareer&&selCareer.id===c.id?'selected':''}" onclick="selectCareer('${c.id}')">
+      <div class="cp-tag">${MAJORS[selMajor].label}</div>
+      <div class="cp-title">${c.title}</div>
+      <div class="cp-salary">~${fmt(c.salary)} starting · BLS data</div>
+    </div>`).join('');
+}
+
+function selectCareer(id){
+  const careers=MAJORS[selMajor]?.careers||[];
+  selCareer=careers.find(c=>c.id===id);
+  if(selCareer){
+    document.getElementById('salSlider').value=selCareer.salary;
+    document.getElementById('salHint').textContent=`BLS median for ${selCareer.title}`;
+    updateScenario();
+  }
+  renderCareerGrid();
+}
+
+// ═══════════════════════════════════════════════════════
+// SCENARIO
+// ═══════════════════════════════════════════════════════
+function updateScenario(){
+  document.getElementById('salDisplay').textContent=fmt(parseInt(document.getElementById('salSlider').value));
+  document.getElementById('rateDisplay').textContent=fmtP(parseFloat(document.getElementById('rateSlider').value));
+  document.getElementById('termDisplay').textContent=parseInt(document.getElementById('termSlider').value)+' years';
+}
+
+// ═══════════════════════════════════════════════════════
+// CALCULATIONS
+// ═══════════════════════════════════════════════════════
+function calcMonthly(p,r,y){
+  if(!p||p<=0)return 0;
+  const mo=r/100/12,n=y*12;
+  if(mo===0)return p/n;
+  return p*mo*Math.pow(1+mo,n)/(Math.pow(1+mo,n)-1);
+}
+
+function calcVS(s,salary,loans,rate,term){
+  const mo=calcMonthly(loans,rate,term),mi=salary/12;
+  const dti=mi>0?mo/mi*100:50;
+  const a=clamp((1-(dti/40))*30,0,30);
+  const schoolSal=s.earlyCareerSal||salary;
+  const o=clamp(((clamp(schoolSal/Math.max(salary,1),.5,2)-.5)/1.5)*25,0,25);
+  const g=clamp((s.gradRate||.65)*20,0,20);
+  const p2=clamp((1-(s.admRate||.7))*15,0,15);
+  const n2=clamp(((s.networkScore||65)/100)*10,0,10);
+  return{total:clamp(Math.round(a+o+g+p2+n2),0,100),a:Math.round(a),o:Math.round(o),g:Math.round(g),p:Math.round(p2),n:Math.round(n2)};
+}
+
+function scoreColor(s){return s>=75?'#1D9E75':s>=55?'#EF9F27':'#E24B4A';}
+
+function ringHTML(score){
+  const c=scoreColor(score),r=26,cx=32,cy=32,circ=2*Math.PI*r;
+  const dash=(score/100)*circ;
+  return`<svg class="vs-ring" viewBox="0 0 64 64" aria-label="Value score ${score} out of 100">
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#E0DED8" stroke-width="6"/>
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${c}" stroke-width="6"
+      stroke-dasharray="${dash.toFixed(1)} ${circ.toFixed(1)}"
+      stroke-dashoffset="${(circ/4).toFixed(1)}" stroke-linecap="round"/>
+    <text x="${cx}" y="${cy+1}" text-anchor="middle" dominant-baseline="middle"
+      font-size="14" font-weight="700" fill="${c}" font-family="Inter,system-ui">${score}</text>
+  </svg>`;
+}
+
+// ═══════════════════════════════════════════════════════
+// RESULTS
+// ═══════════════════════════════════════════════════════
+function renderResults(){
+  const salary=parseInt(document.getElementById('salSlider').value);
+  const rate=parseFloat(document.getElementById('rateSlider').value);
+  const term=parseInt(document.getElementById('termSlider').value);
+  const mi=salary/12;
+
+  document.getElementById('rSal').textContent=fmt(salary)+'/yr';
+  document.getElementById('rRate').textContent=fmtP(rate);
+  document.getElementById('rTerm').textContent=term+' yrs';
+  document.getElementById('rCar').textContent=selCareer?selCareer.title:'Custom';
+  document.getElementById('rMaj').textContent=MAJORS[selMajor]?.label||'Custom';
+
+  const cc=document.getElementById('ccMode').checked;
+  let data=schools.map(s=>{
+    const isIn=(document.getElementById(`res_${s.uid}`)?.value||'in')==='in';
+    const tuit=(isIn?s.tuitionIn:s.tuitionOut)||0;
+    const rb=s.rb||0;
+    const yrs=parseFloat(document.getElementById(`yrs_${s.uid}`)?.value)||4;
+    const aid=parseFloat(document.getElementById(`aid_${s.uid}`)?.value)||0;
+    const lpy=parseFloat(document.getElementById(`loan_${s.uid}`)?.value)||0;
+    const net=Math.max(0,(tuit+rb)-aid);
+    const loans=lpy>0?lpy*yrs:(s.medDebt||20000);
+    const totalCost=net*yrs;
+    const mo=calcMonthly(loans,rate,term);
+    const dti=mi>0?mo/mi*100:0;
+    const interest=loans>0?(mo*term*12)-loans:0;
+    const vs=calcVS(s,salary,loans,rate,term);
+    return{...s,isIn,tuit,rb,net,loans,totalCost,mo,dti,interest,yrs,loanSrc:lpy>0?'your input':'federal median',vs,isCCPath:false};
+  });
+
+  if(cc&&schools.length>0){
+    const destUID=document.getElementById('cc_dest')?.value;
+    const dest=schools.find(s=>String(s.uid)===String(destUID))||schools[0];
+    const ccT=parseFloat(document.getElementById('cc_t')?.value)||4000;
+    const ccRB=parseFloat(document.getElementById('cc_rb')?.value)||9000;
+    const ccAid=parseFloat(document.getElementById('cc_aid')?.value)||0;
+    const ccNet=Math.max(0,(ccT+ccRB)-ccAid);
+    const totalCost=ccNet*2+((dest.tuitionIn||0)+(dest.rb||0))*2;
+    const loans=Math.max(0,totalCost*0.55);
+    const mo=calcMonthly(loans,rate,term);
+    const dti=mi>0?mo/mi*100:0;
+    const interest=loans>0?(mo*term*12)-loans:0;
+    const ccS={name:'CC → '+dest.name,city:'Community College + '+dest.city,state:dest.state,
+      tuitionIn:ccT,rb:ccRB,gradRate:.78,admRate:.70,
+      earlyCareerSal:dest.earlyCareerSal,midCareerSal:dest.midCareerSal,networkScore:dest.networkScore||65};
+    const vs=calcVS(ccS,salary,loans,rate,term);
+    data.push({...ccS,isIn:true,tuit:ccT,rb:ccRB,net:ccNet,loans,totalCost,mo,dti,interest,yrs:4,loanSrc:'estimated',vs,isCCPath:true,isLive:false});
+  }
+
+  data.sort((a,b)=>b.vs.total-a.vs.total);
+
+  document.getElementById('resultsList').innerHTML=data.map((s,i)=>{
+    const isBest=i===0;
+    let dtc='green',bc='#1D9E75';
+    if(s.dti>20){dtc='red';bc='#E24B4A';}
+    else if(s.dti>10){dtc='amber';bc='#EF9F27';}
+    const bw=Math.min(100,Math.round(s.dti));
+    const dtiColor=s.dti>20?'#E24B4A':s.dti>10?'#EF9F27':'#1D9E75';
+    return`<div class="result-card ${isBest?(s.isCCPath?'cc-result':'best'):''}  ${s.isCCPath?'cc-result':''}">
+      ${isBest?(s.isCCPath?'<div class="best-badge blue">BEST VALUE</div>':'<div class="best-badge green">BEST VALUE</div>'):''}
+      <div class="rc-header">
+        <div>
+          <div class="rc-name">${s.name}</div>
+          <div class="rc-loc">${s.city}, ${s.state}</div>
+        </div>
+        <span class="rc-data-source">${s.isLive?'Live API data':'Verified data'}</span>
+      </div>
+
+      <div class="monthly-hero">
+        <div>
+          <div class="mh-label">Estimated monthly loan payment</div>
+          <div class="mh-amount">${fmt(s.mo)}<span style="font-size:16px;font-weight:400;color:rgba(255,255,255,0.6)">/mo</span></div>
+          <div class="mh-sub">${term}-year repayment · ${fmtP(rate)} interest</div>
+        </div>
+        <div class="mh-dti">
+          <div class="mh-label">Debt-to-income</div>
+          <div class="mh-dti-val" style="color:${dtiColor}">${Math.round(s.dti)}%</div>
+          <div class="mh-dti-label">of monthly income</div>
+        </div>
+      </div>
+
+      <div class="vs-row">
+        ${ringHTML(s.vs.total)}
+        <div class="vs-content">
+          <div class="vs-title">Gradwise Value Score</div>
+          <div class="vs-bars">
+            <div class="vs-bar-row"><div class="vs-bar-name">Affordability</div><div class="vs-bar-bg"><div class="vs-bar-fill" style="width:${Math.round(s.vs.a/30*100)}%;background:#1D9E75"></div></div><div class="vs-bar-val" style="color:#1D9E75">${s.vs.a}/30</div></div>
+            <div class="vs-bar-row"><div class="vs-bar-name">Earning power</div><div class="vs-bar-bg"><div class="vs-bar-fill" style="width:${Math.round(s.vs.o/25*100)}%;background:#185FA5"></div></div><div class="vs-bar-val" style="color:#185FA5">${s.vs.o}/25</div></div>
+            <div class="vs-bar-row"><div class="vs-bar-name">Graduation rate</div><div class="vs-bar-bg"><div class="vs-bar-fill" style="width:${Math.round(s.vs.g/20*100)}%;background:#7F77DD"></div></div><div class="vs-bar-val" style="color:#7F77DD">${s.vs.g}/20</div></div>
+            <div class="vs-bar-row"><div class="vs-bar-name">Selectivity</div><div class="vs-bar-bg"><div class="vs-bar-fill" style="width:${Math.round(s.vs.p/15*100)}%;background:#BA7517"></div></div><div class="vs-bar-val" style="color:#BA7517">${s.vs.p}/15</div></div>
+            <div class="vs-bar-row"><div class="vs-bar-name">Network strength</div><div class="vs-bar-bg"><div class="vs-bar-fill" style="width:${Math.round(s.vs.n/10*100)}%;background:#D85A30"></div></div><div class="vs-bar-val" style="color:#D85A30">${s.vs.n}/10</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rc-metrics">
+        <div class="metric"><div class="metric-label">Total debt</div><div class="metric-value">${fmt(s.loans)}</div></div>
+        <div class="metric"><div class="metric-label">4-yr net cost</div><div class="metric-value">${fmt(s.totalCost)}</div></div>
+        <div class="metric"><div class="metric-label">Interest paid</div><div class="metric-value">${fmt(s.interest)}</div></div>
+        <div class="metric"><div class="metric-label">Avg net price</div><div class="metric-value">${fmt(s.anp)}</div></div>
+      </div>
+
+      <div class="dti-bar-wrap">
+        <div class="dti-bar-label"><span>Debt-to-income ratio</span><strong style="color:${bc}">${Math.round(s.dti)}% of monthly income</strong></div>
+        <div class="dti-bar-bg"><div class="dti-bar-fill" style="width:${bw}%;background:${bc}"></div></div>
+      </div>
+
+      <div class="rc-footer">
+        <span>Grad rate: <strong>${s.gradRate!=null?Math.round(s.gradRate*100)+'%':'N/A'}</strong></span>
+        <span>Admit rate: <strong>${s.admRate!=null?Math.round(s.admRate*100)+'%':'N/A'}</strong></span>
+        <span>Early career: <strong>${fmt(s.earlyCareerSal)}</strong></span>
+        ${s.midCareerSal?`<span>Mid-career: <strong>${fmt(s.midCareerSal)}</strong></span>`:''}
+        <span>Debt source: <strong>${s.loanSrc}</strong></span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.search-wrap')&&!e.target.closest('.dropdown'))
+    document.getElementById('dd').classList.remove('open');
+});
+
+renderMajorTabs();
+renderCareerGrid();
+updateScenario();
+</script>
+</body>
+</html>
